@@ -1,0 +1,104 @@
+2025.09.16 18:05:16.085		'11': request from '848881' (close #34299640 sell 0.03 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.092		'11': request from '848881' (close #34341458 sell 0.07 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.095		'11': request from '848881' (close #34277480 sell 0.03 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.102		'11': request from '848881' (close #34297611 sell 0.03 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.111		'11': request from '848881' (close #34278647 sell 0.03 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.116		'11': request from '848881' (close #34338867 sell 0.03 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.121		'11': request from '848881' (close #34289800 sell 0.03 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.124		'11': request from '848881' (close #34339957 sell 0.03 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.126		'11': request from '848881' (close #34294042 sell 0.03 GBPJPY.sc at 200.06200)
+2025.09.16 18:05:16.366		'848881': request deleted by API
+2025.09.16 18:05:16.366		'848881': open order #34341458 modified by API
+2025.09.16 18:05:16.366	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:05:16.366		'848881': close order #34299640 (sell 0.03 GBPJPY.sc at 200.38200) at 200.05700 completed
+2025.09.16 18:05:16.366		'11': confirm '848881' close #34299640 sell 0.03 GBPJPY.sc at 200.05700 (200.03600 / 200.05700)
+2025.09.16 18:05:16.382		'848881': request deleted by API
+2025.09.16 18:05:16.387		'848881': open order #34341458 modified by API
+2025.09.16 18:05:16.387	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:05:16.387		'848881': close order #34339957 (sell 0.03 GBPJPY.sc at 200.57100) at 200.05700 completed
+2025.09.16 18:05:16.387		'11': confirm '848881' close #34339957 sell 0.03 GBPJPY.sc at 200.05700 (200.03600 / 200.05700)
+2025.09.16 18:05:16.387		'848881': request deleted by API
+2025.09.16 18:05:16.387		'848881': open order #34341458 modified by API
+2025.09.16 18:05:16.387	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:05:16.387		'848881': close order #34297611 (sell 0.03 GBPJPY.sc at 200.16900) at 200.05700 completed
+2025.09.16 18:05:16.387		'11': confirm '848881' close #34297611 sell 0.03 GBPJPY.sc at 200.05700 (200.03600 / 200.05700)
+2025.09.16 18:05:16.387		'848881': request deleted by API
+2025.09.16 18:05:16.387		'848881': open order #34341458 modified by API
+2025.09.16 18:05:16.387	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:05:16.387		'848881': close order #34278647 (sell 0.03 GBPJPY.sc at 199.86800) at 200.05700 completed
+2025.09.16 18:05:16.387		'11': confirm '848881' close #34278647 sell 0.03 GBPJPY.sc at 200.05700 (200.03600 / 200.05700)
+2025.09.16 18:05:16.397		'848881': request deleted by API
+2025.09.16 18:05:16.397		'848881': open order #34341458 modified by API
+2025.09.16 18:05:16.397	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:05:16.397		'848881': close order #34277480 (sell 0.03 GBPJPY.sc at 199.72800) at 200.05700 completed
+2025.09.16 18:05:16.397		'11': confirm '848881' close #34277480 sell 0.03 GBPJPY.sc at 200.05700 (200.03600 / 200.05700)
+2025.09.16 18:05:16.403		'848881': request deleted by API
+2025.09.16 18:05:16.403		'848881': open order #34341458 modified by API
+2025.09.16 18:05:16.403	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:05:16.403		'848881': close order #34289800 (sell 0.03 GBPJPY.sc at 199.95900) at 200.05700 completed
+2025.09.16 18:05:16.403		'11': confirm '848881' close #34289800 sell 0.03 GBPJPY.sc at 200.05700 (200.03600 / 200.05700)
+2025.09.16 18:05:16.408		'848881': request deleted by API
+2025.09.16 18:05:16.408		'848881': open order #34341458 modified by API
+2025.09.16 18:05:16.408	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:05:16.408		'848881': close order #34294042 (sell 0.03 GBPJPY.sc at 200.05000) at 200.05700 completed
+2025.09.16 18:05:16.408		'11': confirm '848881' close #34294042 sell 0.03 GBPJPY.sc at 200.05700 (200.03600 / 200.05700)
+2025.09.16 18:05:16.408		'848881': request deleted by API
+2025.09.16 18:05:16.408		'848881': open order #34341458 modified by API
+2025.09.16 18:05:16.408	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:05:16.408		'848881': close order #34338867 (sell 0.03 GBPJPY.sc at 200.47800) at 200.05700 completed
+2025.09.16 18:05:16.408		'11': confirm '848881' close #34338867 sell 0.03 GBPJPY.sc at 200.05700 (200.03600 / 200.05700)
+2025.09.16 18:07:26.361		'11': request from '848881' (close #34289815 sell 0.03 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.365		'11': request from '848881' (close #34299655 sell 0.03 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.373		'11': request from '848881' (close #34338887 sell 0.03 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.374		'11': request from '848881' (close #34278655 sell 0.03 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.381		'11': request from '848881' (close #34341468 sell 0.07 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.385		'11': request from '848881' (close #34339974 sell 0.03 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.622		'848881': request deleted by API
+2025.09.16 18:07:26.623		'848881': open order #34341468 modified by API
+2025.09.16 18:07:26.623	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:07:26.623		'848881': close order #34289815 (sell 0.03 GBPJPY.sc at 199.95300) at 200.03800 completed
+2025.09.16 18:07:26.623		'11': confirm '848881' close #34289815 sell 0.03 GBPJPY.sc at 200.03800 (200.01700 / 200.03800)
+2025.09.16 18:07:26.630		'11': request from '848881' (close #34277496 sell 0.03 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.636		'11': request from '848881' (close #34297616 sell 0.03 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.641		'848881': request deleted by API
+2025.09.16 18:07:26.642		'848881': open order #34341458 modified by API
+2025.09.16 18:07:26.642	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:07:26.642		'848881': close order #34299655 (sell 0.03 GBPJPY.sc at 200.38200) at 200.03800 completed
+2025.09.16 18:07:26.642		'11': confirm '848881' close #34299655 sell 0.03 GBPJPY.sc at 200.03800 (200.01700 / 200.03800)
+2025.09.16 18:07:26.642		'11': request from '848881' (close #34294015 sell 0.03 GBPJPY.sc at 200.03800)
+2025.09.16 18:07:26.653		'848881': request deleted by API
+2025.09.16 18:07:26.653		'848881': open order #34341468 modified by API
+2025.09.16 18:07:26.653	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:07:26.653		'848881': close order #34339974 (sell 0.03 GBPJPY.sc at 200.57100) at 200.03800 completed
+2025.09.16 18:07:26.653		'11': confirm '848881' close #34339974 sell 0.03 GBPJPY.sc at 200.03800 (200.01700 / 200.03800)
+2025.09.16 18:07:26.653		'848881': request deleted by API
+2025.09.16 18:07:26.653		'848881': open order #34341458 modified by API
+2025.09.16 18:07:26.653	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:07:26.653		'848881': close order #34278655 (sell 0.03 GBPJPY.sc at 199.86800) at 200.03800 completed
+2025.09.16 18:07:26.653		'11': confirm '848881' close #34278655 sell 0.03 GBPJPY.sc at 200.03800 (200.01700 / 200.03800)
+2025.09.16 18:07:26.664		'848881': request deleted by API
+2025.09.16 18:07:26.664		'848881': open order #34341458 modified by API
+2025.09.16 18:07:26.664	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:07:26.664		'848881': close order #34338887 (sell 0.03 GBPJPY.sc at 200.47800) at 200.03800 completed
+2025.09.16 18:07:26.664		'11': confirm '848881' close #34338887 sell 0.03 GBPJPY.sc at 200.03800 (200.01700 / 200.03800)
+2025.09.16 18:07:26.898		'848881': request deleted by API
+2025.09.16 18:07:26.898		'848881': open order #34341458 modified by API
+2025.09.16 18:07:26.898	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:07:26.898		'848881': close order #34294015 (sell 0.03 GBPJPY.sc at 200.04100) at 200.03800 completed
+2025.09.16 18:07:26.898		'11': confirm '848881' close #34294015 sell 0.03 GBPJPY.sc at 200.03800 (200.01700 / 200.03800)
+2025.09.16 18:07:26.906		'848881': request deleted by API
+2025.09.16 18:07:26.906		'848881': open order #34341458 modified by API
+2025.09.16 18:07:26.906	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:07:26.906		'848881': close order #34277496 (sell 0.03 GBPJPY.sc at 199.72800) at 200.03800 completed
+2025.09.16 18:07:26.906		'11': confirm '848881' close #34277496 sell 0.03 GBPJPY.sc at 200.03800 (200.01700 / 200.03800)
+2025.09.16 18:07:26.917		'848881': request deleted by API
+2025.09.16 18:07:26.917		'848881': open order #34341458 modified by API
+2025.09.16 18:07:26.917	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:07:26.917		'848881': close order #34297616 (sell 0.03 GBPJPY.sc at 200.16900) at 200.03800 completed
+2025.09.16 18:07:26.917		'11': confirm '848881' close #34297616 sell 0.03 GBPJPY.sc at 200.03800 (200.01700 / 200.03800)
+2025.09.16 18:08:46.345		'11': request from '848881' (close #34341458 sell 0.07 GBPJPY.sc at 200.04700)
+2025.09.16 18:08:46.621		'848881': request deleted by API
+2025.09.16 18:08:46.621		'848881': open order #34341468 modified by API
+2025.09.16 18:08:46.621	DynamicMargin	'848881' Update Margin on ProfileID:8
+2025.09.16 18:08:46.621		'848881': close order #34341458 (sell 0.07 GBPJPY.sc at 200.70000) at 200.04900 completed
+2025.09.16 18:08:46.621		'11': confirm '848881' close #34341458 sell 0.07 GBPJPY.sc at 200.04900 (200.02700 / 200.04700)
