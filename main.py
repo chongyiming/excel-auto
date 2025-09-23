@@ -17,8 +17,9 @@ if pasted_text:
     # Try parsing as CSV-like text (tabs or commas)
     try:
         df = pd.read_csv(StringIO(pasted_text), sep="\t",header=None)
-        
-        
+        print(df)
+        print(df[0])
+        df[0]="UM"
         st.success("✅ Table parsed successfully!")
         st.dataframe(df)  # Show table
 
