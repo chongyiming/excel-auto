@@ -39,7 +39,7 @@ import re
 completed_ids = set()
 all_matches = []
 
-log_text = st.text_area(" ", height=200, key="log_text")
+log_text = st.text_area("Paste log file here", height=200, key="log_text")
 if log_text:
     try:
         log_text_df = pd.read_csv(StringIO(log_text), sep="\t", header=None)
