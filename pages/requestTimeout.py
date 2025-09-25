@@ -27,8 +27,12 @@ if log_text:
                     all_matches.append(order_id)
 
         unique_matches = sorted(set(all_matches), key=lambda x: int(x[1:]))
-        
-        st.write(", ".join(unique_matches))
+        if len(unique_matches)>0:
+            st.write(", ".join(unique_matches))
+        else:
+            st.write("Could find incomplete order, randomly put a number")
+            st.write(sorted(completed_ids)[-1])
+
 
 
     except:
