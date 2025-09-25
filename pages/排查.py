@@ -193,6 +193,11 @@ if option=="UM":
     """, unsafe_allow_html=True)
 
 elif option=="ST":
+
+    
+    
+    usc_string = ""
+
     st.write("2) Paste Per seconds modified here:")
 
     col1, col2,col3 = st.columns(3)
@@ -262,6 +267,26 @@ elif option=="ST":
             st.success(f'ST2 Count: {len(st2_result_df)}')
             st.dataframe(st2_result_df.iloc[:, 1])
 
+            account_list = pd.read_csv("account.csv", sep="\t", header=None)
+            account_list = account_list.iloc[1:, :]  # skip header
+
+            # Ensure clean strings (optional but recommended)
+            account_list[0] = account_list[0].astype(str).str.strip()
+            account_list[1] = account_list[1].astype(str).str.strip()
+            st2_result_df.iloc[:, 1] = st2_result_df.iloc[:, 1].astype(str).str.strip()
+
+
+            for i in st2_result_df.iloc[:, 1]:
+                for acc_num, label in zip(account_list[0], account_list[1]):
+                    if i == acc_num and label == "USC":
+                        usc_string += i + ","
+
+            if usc_string:
+                usc_string = usc_string.rstrip(",")  # Remove trailing comma, if any
+                usc_accounts = usc_string.split(",")
+
+
+
         except Exception as e:
             st.error(f"Error parsing ST2 table: {e}")
     if st4_pasted_text:
@@ -292,7 +317,11 @@ elif option=="ST":
         except Exception as e:
             st.error(f"Error parsing ST4 table: {e}")
 
-    st.write("5) Copy this to outlook:")
+    st.write("3) USC Users:")
+    st.write(usc_string)
+
+
+    st.write("4) Copy this to outlook:")
 
     st.markdown("""
     Hi Team,<br><br><br><br>
