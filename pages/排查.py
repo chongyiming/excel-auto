@@ -109,7 +109,7 @@ if option=="UM":
             st.error(f"Error parsing table: {e}") 
             
                         
-    st.write("3) Go to http://192.168.1.39:8000/find_info")
+    st.write("3) Paste in http://192.168.1.39:8000/find_info and **click 複製表格**")
 
 
     st.write("4) Paste Advanced account info here:")
