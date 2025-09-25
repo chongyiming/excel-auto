@@ -1,4 +1,4 @@
-# import streamlit as st
+import streamlit as st
 # import pandas as pd
 # from io import StringIO
 # import ast
@@ -85,3 +85,4 @@
 
 #     except Exception as e:
 #         st.error(f"Error parsing table: {e}")
+st.image("cannot-do.png")
