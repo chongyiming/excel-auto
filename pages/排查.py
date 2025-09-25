@@ -391,7 +391,7 @@ elif option=="PU":
             for col in pu_result_df.columns[1:]:
                 pu_result_df[col] = pu_result_df[col].apply(clean_cell)
 
-            st.success(f'PU2 Count: {len(pu_result_df)}')
+            st.success(f'PU Count: {len(pu_result_df)}')
             st.dataframe(pu_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU2: {e}")
@@ -527,69 +527,84 @@ elif option=="PU":
 
     Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br><br>
 
-    <u><strong>PU</strong></u>
     """, unsafe_allow_html=True)
+    if pu_pasted_text:
+        st.markdown("<u><strong>PU</strong></u>", unsafe_allow_html=True)
+        st.markdown(
+        pu_result_df.iloc[:, [1]].to_html(index=False, header=False),
+        unsafe_allow_html=True
+        )
+    
+    if pu2_pasted_text:
+        st.markdown("""
+        <br>
 
-    st.markdown(
-    pu_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
+        <u><strong>PU2</strong></u>
+        """, unsafe_allow_html=True)
+        st.markdown(
+        pu2_result_df.iloc[:, [1]].to_html(index=False, header=False),
+        unsafe_allow_html=True
+        )
 
-    st.markdown("""
-    <br>
+    if pu3_pasted_text:
 
-    <u><strong>PU2</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-    pu2_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
+        st.markdown("""
+        <br>
 
-    st.markdown("""
-    <br>
+        <u><strong>PU3</strong></u>
+        """, unsafe_allow_html=True)
+        st.markdown(
+        pu3_result_df.iloc[:, [1]].to_html(index=False, header=False),
+        unsafe_allow_html=True
+        )
 
-    <u><strong>PU3</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-    pu3_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
-    st.markdown("""
-    <br>
+    if pu4_pasted_text:
 
-    <u><strong>PU4</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-    pu4_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
-    st.markdown("""
-    <br>
+        st.markdown("""
+        <br>
 
-    <u><strong>PU5</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-    pu5_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
-    st.markdown("""
-    <br>
+        <u><strong>PU4</strong></u>
+        """, unsafe_allow_html=True)
+        st.markdown(
+        pu4_result_df.iloc[:, [1]].to_html(index=False, header=False),
+        unsafe_allow_html=True
+        )
 
-    <u><strong>PU6</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-    pu6_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
-    st.markdown("""
-    <br>
+    if pu5_pasted_text:
 
-    <u><strong>PU7</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-    pu7_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
+        st.markdown("""
+        <br>
+
+        <u><strong>PU5</strong></u>
+        """, unsafe_allow_html=True)
+        st.markdown(
+        pu5_result_df.iloc[:, [1]].to_html(index=False, header=False),
+        unsafe_allow_html=True
+        )
+
+    if pu6_pasted_text:
+
+        st.markdown("""
+        <br>
+
+        <u><strong>PU6</strong></u>
+        """, unsafe_allow_html=True)
+        st.markdown(
+        pu6_result_df.iloc[:, [1]].to_html(index=False, header=False),
+        unsafe_allow_html=True
+        )
+
+    if pu7_pasted_text:
+
+        st.markdown("""
+        <br>
+
+        <u><strong>PU7</strong></u>
+        """, unsafe_allow_html=True)
+        st.markdown(
+        pu7_result_df.iloc[:, [1]].to_html(index=False, header=False),
+        unsafe_allow_html=True
+        )
     st.markdown("""
     <br><br>
 

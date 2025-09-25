@@ -32,7 +32,7 @@ if log_text:
         else:
             st.write("Could find incomplete order, randomly put a number")
             st.write(sorted(completed_ids)[-1])
-
+        
 
 
     except:
