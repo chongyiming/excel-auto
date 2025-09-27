@@ -119,7 +119,7 @@ if rt_pasted_text:
                 
 
             st.markdown("""<br>""", unsafe_allow_html=True)
-            st.subheader("🧾 Final Summary: All Orders Per Account (including fallback)")
+            st.subheader("All Orders Per Server (including fallback)")
 
             for key in result_dict:
                 all_orders_flat = []
@@ -141,9 +141,9 @@ if rt_pasted_text:
 
                 summary_matches = sorted(set(all_orders_flat), key=lambda x: int(x[1:]))
 
-                st.markdown(f"### 🔑 Account: `{key}`")
+                st.markdown(f"### Server: `{key}`")
                 if summary_matches:
-                    st.write(", ".join(summary_matches))
+                    st.write(",".join(summary_matches))
                 else:
                     st.write("No orders found (no incomplete or completed orders).")
 
