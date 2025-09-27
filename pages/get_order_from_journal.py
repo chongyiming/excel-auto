@@ -9,7 +9,7 @@ from collections import defaultdict
 completed_ids = set()
 all_matches = []
 
-log_text = st.text_area("Paste log file here **(ONLY INDIVIDUAL LOG)**", height=200, key="log_text")
+log_text = st.text_area("Paste journal log here **(ONLY INDIVIDUAL LOGIN)**", height=200, key="log_text")
 if log_text:
     try:
         log_text_df = pd.read_csv(StringIO(log_text), sep="\t", header=None)
