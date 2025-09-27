@@ -1,3 +1,14 @@
+import streamlit as st
+import pandas as pd
+from io import StringIO
+import ast
+import re
+from collections import defaultdict
+
+
+completed_ids = set()
+all_matches = []
+
 log_text = st.text_area("Paste log file here **(ONLY INDIVIDUAL LOG)**", height=200, key="log_text")
 if log_text:
     try:
