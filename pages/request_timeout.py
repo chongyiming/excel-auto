@@ -77,12 +77,16 @@ if rt_pasted_text:
 
                     try:
                         entry_time = datetime.strptime(entry_time_str, "%Y-%m-%d %H:%M:%S")
+                        st.write(entry_time)
                     except:
                         st.warning(f"Invalid datetime: {entry_time_str}")
                         continue
 
                     start_time = entry_time - timedelta(minutes=4)
-                    end_time = entry_time - timedelta(seconds=2.59 * 60)
+                    # st.write("start",start_time)
+                    end_time = entry_time - timedelta(minutes=2, seconds=59)
+                    # st.write("end",end_time)
+
 
                     if "parsed_time" not in journal_df.columns:
                         journal_df["parsed_time"] = journal_df[0].astype(str).apply(parse_ts)
@@ -94,6 +98,8 @@ if rt_pasted_text:
                     final_mask = time_mask & id_mask
 
                     filtered_logs = journal_df[final_mask].iloc[:, [0,1,2]]
+                    # filtered_logs = journal_df[final_mask]
+
 
                     if not filtered_logs.empty:
                         st.write(f"`{login_id}`")
