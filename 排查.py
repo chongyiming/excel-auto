@@ -18,12 +18,10 @@ def clean_cell(cell):
     else:
         return cell
 
-
 mongo_uri = "mongodb+srv://yimingchonghytech:Amaci123456789012!@cluster0.fwtqwlo.mongodb.net/"
-
 client = MongoClient(mongo_uri)
-
 db = client.test
+collection = db.datas
 
 
 st.title("排查")
@@ -274,18 +272,26 @@ elif option=="ST":
 
             st.success(f'ST2 Count: {len(st2_result_df)}')
             st.dataframe(st2_result_df.iloc[:, 1])
-            
-            account_list = pd.read_csv("account.csv", sep="\t", header=None)
-            account_list = account_list.iloc[1:, :]  # skip header
+            documents = list(collection.find())
 
-            # Ensure clean strings (optional but recommended)
-            account_list[0] = account_list[0].astype(str).str.strip()
-            account_list[1] = account_list[1].astype(str).str.strip()
+            if documents:
+                db_df = pd.DataFrame(documents)
+                if '_id' in db_df.columns:
+                    db_df.drop(columns=['_id'], inplace=True)
+                # st.dataframe(db_df[['ID']])
+            else:
+                st.info("No documents found in the collection.")
+            
+
+            
+            account_list_ID = db_df['ID'].astype(str).str.strip()
+            account_list_Currency = db_df['Currency'].astype(str).str.strip()
+
             st2_result_df.iloc[:, 1] = st2_result_df.iloc[:, 1].astype(str).str.strip()
 
 
             for i in st2_result_df.iloc[:, 1]:
-                for acc_num, label in zip(account_list[0], account_list[1]):
+                for acc_num, label in zip(account_list_ID, account_list_Currency):
                     if i == acc_num and label == "USC":
                         usc_string += i + ","
 
