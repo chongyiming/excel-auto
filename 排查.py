@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 import ast
+from pymongo import MongoClient
 
 def clean_cell(cell):
     """Convert string-list to single value if needed."""
@@ -16,6 +17,13 @@ def clean_cell(cell):
             return cell
     else:
         return cell
+
+
+mongo_uri = "mongodb+srv://yimingchonghytech:Amaci123456789012!@cluster0.fwtqwlo.mongodb.net/"
+
+client = MongoClient(mongo_uri)
+
+db = client.test
 
 
 st.title("排查")
@@ -266,7 +274,7 @@ elif option=="ST":
 
             st.success(f'ST2 Count: {len(st2_result_df)}')
             st.dataframe(st2_result_df.iloc[:, 1])
-
+            
             account_list = pd.read_csv("account.csv", sep="\t", header=None)
             account_list = account_list.iloc[1:, :]  # skip header
 

@@ -85,4 +85,23 @@ import streamlit as st
 
 #     except Exception as e:
 #         st.error(f"Error parsing table: {e}")
-st.image("cannot-do.png")
+# st.image("cannot-do.png")
+
+
+pages = {
+    "Dashboard": [
+        st.Page("main.py", title="Homepage"),
+    ],
+    "Request Timeout": [
+        st.Page("Request_Timeout.py", title="Request Timeout"),
+        st.Page("Request_Timeout进阶版.py", title="Request Timeout(进阶版)"),
+    ],
+    "负载排查": [
+        st.Page("排查.py", title="排查"),
+        st.Page("account_lists.py", title="Account")
+
+    ]
+}
+
+pg = st.navigation(pages)
+pg.run()
