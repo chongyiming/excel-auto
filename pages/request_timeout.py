@@ -82,7 +82,7 @@ if rt_pasted_text:
                         continue
 
                     start_time = entry_time - timedelta(minutes=4)
-                    end_time = entry_time - timedelta(minutes=3)
+                    end_time = entry_time - timedelta(seconds=2.59 * 60)
 
                     if "parsed_time" not in journal_df.columns:
                         journal_df["parsed_time"] = journal_df[0].astype(str).apply(parse_ts)
