@@ -3,7 +3,7 @@ import pandas as pd
 from io import StringIO
 import ast
 from pymongo import MongoClient
-
+import pymongo
 def clean_cell(cell):
     """Convert string-list to single value if needed."""
     if isinstance(cell, str):
@@ -27,9 +27,8 @@ def clean_cell(cell):
 
 @st.cache_resource
 def init_connection():
-    return MongoClient(
-        f"mongodb+srv://{st.secrets.mongo.username}:{st.secrets.mongo.password}@{st.secrets.mongo.host}/"
-    )
+    return pymongo.MongoClient(**st.secrets["mongo"])
+
 
 client = init_connection()
 db = client.test
