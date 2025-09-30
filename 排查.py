@@ -25,14 +25,13 @@ def clean_cell(cell):
 # collection = db.datas
 
 
-@st.cache_resource
-def init_connection():
-    return pymongo.MongoClient(**st.secrets["mongo"])
+# @st.cache_resource
+# def init_connection():
+#     return pymongo.MongoClient(**st.secrets["mongo"])
 
 
-client = init_connection()
-db = client.test
-collection = db.datas
+# client = init_connection()
+# db = client.test
 
 
 st.title("排查")
@@ -283,31 +282,16 @@ elif option=="ST":
 
             st.success(f'ST2 Count: {len(st2_result_df)}')
             st.dataframe(st2_result_df.iloc[:, 1])
-            # documents = list(collection.find())
+         
+            account_list = pd.read_csv("account.csv", sep="\t", header=None)
+            account_list = account_list.iloc[1:, :]  # skip header
 
-            # if documents:
-            #     db_df = pd.DataFrame(documents)
-            #     if '_id' in db_df.columns:
-            #         db_df.drop(columns=['_id'], inplace=True)
-            #     # st.dataframe(db_df[['ID']])
-            # else:
-            #     st.info("No documents found in the collection.")
-            db_df = get_accounts()
-            if '_id' in db_df.columns:
-                db_df.drop(columns=['_id'], inplace=True)
-            st.dataframe(db_df[['ID']])
-
-            
-
-            
-            account_list_ID = db_df['ID'].astype(str).str.strip()
-            account_list_Currency = db_df['Currency'].astype(str).str.strip()
-
+            account_list[0] = account_list[0].astype(str).str.strip()
+            account_list[1] = account_list[1].astype(str).str.strip()
             st2_result_df.iloc[:, 1] = st2_result_df.iloc[:, 1].astype(str).str.strip()
 
-
             for i in st2_result_df.iloc[:, 1]:
-                for acc_num, label in zip(account_list_ID, account_list_Currency):
+                for acc_num, label in zip(account_list[0], account_list[1]):
                     if i == acc_num and label == "USC":
                         usc_string += i + ","
 

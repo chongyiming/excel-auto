@@ -98,7 +98,7 @@ pages = {
     ],
     "负载排查": [
         st.Page("排查.py", title="排查"),
-        st.Page("account_lists.py", title="Account")
+        # st.Page("account_lists.py", title="Account")
 
     ]
 }
