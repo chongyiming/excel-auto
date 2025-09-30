@@ -18,8 +18,20 @@ def clean_cell(cell):
     else:
         return cell
 
-mongo_uri = "mongodb+srv://yimingchonghytech:Amaci123456789012!@cluster0.fwtqwlo.mongodb.net/"
-client = MongoClient(mongo_uri)
+# mongo_uri = "mongodb+srv://yimingchonghytech:Amaci123456789012!@cluster0.fwtqwlo.mongodb.net/"
+# client = MongoClient(mongo_uri)
+
+# db = client.test
+# collection = db.datas
+
+
+@st.cache_resource
+def init_connection():
+    return MongoClient(
+        f"mongodb+srv://{st.secrets.mongo.username}:{st.secrets.mongo.password}@{st.secrets.mongo.host}/"
+    )
+
+client = init_connection()
 db = client.test
 collection = db.datas
 
@@ -272,15 +284,20 @@ elif option=="ST":
 
             st.success(f'ST2 Count: {len(st2_result_df)}')
             st.dataframe(st2_result_df.iloc[:, 1])
-            documents = list(collection.find())
+            # documents = list(collection.find())
 
-            if documents:
-                db_df = pd.DataFrame(documents)
-                if '_id' in db_df.columns:
-                    db_df.drop(columns=['_id'], inplace=True)
-                # st.dataframe(db_df[['ID']])
-            else:
-                st.info("No documents found in the collection.")
+            # if documents:
+            #     db_df = pd.DataFrame(documents)
+            #     if '_id' in db_df.columns:
+            #         db_df.drop(columns=['_id'], inplace=True)
+            #     # st.dataframe(db_df[['ID']])
+            # else:
+            #     st.info("No documents found in the collection.")
+            db_df = get_accounts()
+            if '_id' in db_df.columns:
+                db_df.drop(columns=['_id'], inplace=True)
+            st.dataframe(db_df[['ID']])
+
             
 
             

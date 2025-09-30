@@ -44,3 +44,4 @@ tzdata
 urllib3
 watchdog
 xyzservices
+pymongo
