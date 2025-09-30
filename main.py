@@ -89,9 +89,9 @@ import streamlit as st
 
 
 pages = {
-    "Dashboard": [
-        st.Page("main.py", title="Homepage"),
-    ],
+    # "Dashboard": [
+    #     st.Page("main.py", title="Homepage"),
+    # ],
     "Request Timeout": [
         st.Page("Request_Timeout.py", title="Request Timeout"),
         st.Page("Request_Timeout进阶版.py", title="Request Timeout(进阶版)"),
