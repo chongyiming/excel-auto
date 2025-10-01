@@ -133,39 +133,39 @@ if option=="UM":
     st.write("3) Paste in http://192.168.1.39:8000/find_info and **click 複製表格**")
 
     st.write("4) Go to [Excel](https://hytechconsult-my.sharepoint.com/:x:/g/personal/yiming_chong_hytechc_com/Edarz2Kh_HBArpQvcfsx86cBRy2E-5hlkLsbjJ8y7a4OtA?e=O8FOqA&nav=MTVfe0JDQTcxMUJFLTBCNkUtNDVFRi1BRTE5LUU2QUIyOTQxQjEyRH0)")
-    st.write("5) Paste Advanced account info here:")
+    # st.write("5) Paste Advanced account info here:")
 
-    rtcol1, rtcol2 = st.columns(2)
+    # rtcol1, rtcol2 = st.columns(2)
 
-    with rtcol1:
-        risk_tool_pasted_text = st.text_area("UM",key="risk_tool_text_area")
+    # with rtcol1:
+    #     risk_tool_pasted_text = st.text_area("UM",key="risk_tool_text_area")
 
-    with rtcol2:
-        risk_tool_pasted_text_2 = st.text_area("UM2",key="risk_tool_text_area_2")
-    # risk_tool_pasted_text = st.text_area(" ", height=200, key="risk_tool_text_area")
-    if risk_tool_pasted_text:
-        try:
-            risk_tool_df = pd.read_csv(StringIO(risk_tool_pasted_text), sep="\t", header=None)
-            risk_tool_df = risk_tool_df.drop(index=0)
+    # with rtcol2:
+    #     risk_tool_pasted_text_2 = st.text_area("UM2",key="risk_tool_text_area_2")
+    # # risk_tool_pasted_text = st.text_area(" ", height=200, key="risk_tool_text_area")
+    # if risk_tool_pasted_text:
+    #     try:
+    #         risk_tool_df = pd.read_csv(StringIO(risk_tool_pasted_text), sep="\t", header=None)
+    #         risk_tool_df = risk_tool_df.drop(index=0)
 
 
-            st.success(f'UM Count: {len(risk_tool_df)}')
-            risk_tool_df = risk_tool_df.fillna('')
-            st.dataframe(risk_tool_df.iloc[:, [0,1,2,3,4,6]])
+    #         st.success(f'UM Count: {len(risk_tool_df)}')
+    #         risk_tool_df = risk_tool_df.fillna('')
+    #         st.dataframe(risk_tool_df.iloc[:, [0,1,2,3,4,6]])
 
-        except Exception as e:
-            st.error(f"Error parsing table: {e}")
-    if risk_tool_pasted_text_2:
-        try:
-            risk_tool_df_2 = pd.read_csv(StringIO(risk_tool_pasted_text_2), sep="\t", header=None)
-            risk_tool_df_2 = risk_tool_df_2.drop(index=0)
+    #     except Exception as e:
+    #         st.error(f"Error parsing table: {e}")
+    # if risk_tool_pasted_text_2:
+    #     try:
+    #         risk_tool_df_2 = pd.read_csv(StringIO(risk_tool_pasted_text_2), sep="\t", header=None)
+    #         risk_tool_df_2 = risk_tool_df_2.drop(index=0)
 
-            st.success(f'UM2 Count: {len(risk_tool_df_2)}')
-            risk_tool_df_2 = risk_tool_df_2.fillna('')
-            st.dataframe(risk_tool_df_2.iloc[:, [0,1,2,3,4,6]])
+    #         st.success(f'UM2 Count: {len(risk_tool_df_2)}')
+    #         risk_tool_df_2 = risk_tool_df_2.fillna('')
+    #         st.dataframe(risk_tool_df_2.iloc[:, [0,1,2,3,4,6]])
 
-        except Exception as e:
-            st.error(f"Error parsing table: {e}")
+    #     except Exception as e:
+    #         st.error(f"Error parsing table: {e}")
     
 
 
@@ -178,23 +178,22 @@ if option=="UM":
 
     Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br><br>
 
-    <u><strong>UM</strong></u>
     """, unsafe_allow_html=True)
 
-    st.markdown(
-        risk_tool_df.iloc[:, [0,1,2,3,4,6]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-    )
+    # if risk_tool_pasted_text:
+    #     st.markdown("""<u><strong>UM</strong></u>""",unsafe_allow_html=True)
+    #     st.markdown(
+    #         risk_tool_df.iloc[:, [0,1,2,3,4,6]].to_html(index=False, header=False),
+    #         unsafe_allow_html=True
+    #     )
 
-    st.markdown("""
-    <br>
 
-    <u><strong>UM2</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-        risk_tool_df_2.iloc[:, [0,1,2,3,4,6]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-    )
+    # if risk_tool_pasted_text_2:
+    #     st.markdown("""<u><strong>UM2</strong></u>""",unsafe_allow_html=True)
+    #     st.markdown(
+    #     risk_tool_df_2.iloc[:, [0,1,2,3,4,6]].to_html(index=False, header=False),
+    #     unsafe_allow_html=True
+    #     )
     st.markdown("""
     <br><br>
 
