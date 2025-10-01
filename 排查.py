@@ -4,6 +4,11 @@ from io import StringIO
 import ast
 from pymongo import MongoClient
 import pymongo
+       
+
+import streamlit as st
+from streamlit_gsheets import GSheetsConnection
+
 def clean_cell(cell):
     """Convert string-list to single value if needed."""
     if isinstance(cell, str):
@@ -32,7 +37,7 @@ def clean_cell(cell):
 
 # client = init_connection()
 # db = client.test
-
+st.cache_data.clear()
 
 st.title("排查")
 
@@ -127,8 +132,8 @@ if option=="UM":
                         
     st.write("3) Paste in http://192.168.1.39:8000/find_info and **click 複製表格**")
 
-
-    st.write("4) Paste Advanced account info here:")
+    st.write("4) Go to [Excel](https://hytechconsult-my.sharepoint.com/:x:/g/personal/yiming_chong_hytechc_com/Edarz2Kh_HBArpQvcfsx86cBRy2E-5hlkLsbjJ8y7a4OtA?e=O8FOqA&nav=MTVfe0JDQTcxMUJFLTBCNkUtNDVFRi1BRTE5LUU2QUIyOTQxQjEyRH0)")
+    st.write("5) Paste Advanced account info here:")
 
     rtcol1, rtcol2 = st.columns(2)
 
@@ -282,17 +287,37 @@ elif option=="ST":
 
             st.success(f'ST2 Count: {len(st2_result_df)}')
             st.dataframe(st2_result_df.iloc[:, 1])
-         
-            account_list = pd.read_csv("account.csv", sep="\t", header=None)
-            account_list = account_list.iloc[1:, :]  # skip header
+            st.write("Accounts")
+            url = "https://docs.google.com/spreadsheets/d/1ImBMnjPD8xsXnqrejd7W2Y2vtREP6tvwox-XJf3mkXA/edit?usp=sharing"
 
-            account_list[0] = account_list[0].astype(str).str.strip()
-            account_list[1] = account_list[1].astype(str).str.strip()
+            conn = st.connection("gsheets", type=GSheetsConnection)
+
+            data = conn.read(spreadsheet=url, usecols=list(range(2)))
+            st.dataframe(data)
+            # account_list = pd.read_csv("account.csv", sep="\t", header=None)
+            # account_list = account_list.iloc[1:, :]  # skip header
+
+            # account_list[0] = account_list[0].astype(str).str.strip()
+            # account_list[1] = account_list[1].astype(str).str.strip()
+            # st2_result_df.iloc[:, 1] = st2_result_df.iloc[:, 1].astype(str).str.strip()
+
+            # for i in st2_result_df.iloc[:, 1]:
+            #     for acc_num, label in zip(account_list[0], account_list[1]):
+            #         if i == acc_num and label == "USC":
+            #             usc_string += i + ","
+
+            # if usc_string:
+            #     usc_string = usc_string.rstrip(",")  # Remove trailing comma, if any
+            #     usc_accounts = usc_string.split(",")
+
+            
+            account_list_ID = data['ID'].astype(str).str.strip()
+            account_list_Currency = data['Currency'].astype(str).str.strip()
             st2_result_df.iloc[:, 1] = st2_result_df.iloc[:, 1].astype(str).str.strip()
 
-            for i in st2_result_df.iloc[:, 1]:
-                for acc_num, label in zip(account_list[0], account_list[1]):
-                    if i == acc_num and label == "USC":
+            for i, j in zip(st2_result_df.iloc[:, 1], st2_result_df.iloc[:, 3]):
+                for acc_num, label in zip(account_list_ID, account_list_Currency):
+                    if i == acc_num and label == "USC" and int(j)>400:
                         usc_string += i + ","
 
             if usc_string:
@@ -331,7 +356,7 @@ elif option=="ST":
         except Exception as e:
             st.error(f"Error parsing ST4 table: {e}")
 
-    st.write("3) USC Users:")
+    st.write("3) USC Users (Filter using Total > 400)")
     st.write(usc_string)
 
 
