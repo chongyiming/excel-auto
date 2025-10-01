@@ -356,7 +356,7 @@ elif option=="ST":
         except Exception as e:
             st.error(f"Error parsing ST4 table: {e}")
 
-    st.write("3) USC Users (Filter using Total > 400)")
+    st.write("3) USC Users (Filter using Total > 400) and can add accounts [here](https://docs.google.com/spreadsheets/d/1ImBMnjPD8xsXnqrejd7W2Y2vtREP6tvwox-XJf3mkXA/edit?usp=sharing)")
     st.write(usc_string)
 
 
