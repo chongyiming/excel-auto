@@ -172,11 +172,10 @@ if option=="UM":
     st.write("5) Copy this to outlook:")
 
     st.markdown("""
-    Hi Team,<br><br><br><br>
+    Hi Team,<br><br>
 
     We are writing to inform you that client’s trading behavior causing excessive server load.<br><br>
-
-    Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br><br>
+    Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.
 
     """, unsafe_allow_html=True)
 
@@ -195,18 +194,10 @@ if option=="UM":
     #     unsafe_allow_html=True
     #     )
     st.markdown("""
-    <br><br>
-
-    What would CS Team need to know?<br><br>
-
-    The clients were informed because of Hyperactive EA Trading might cause server excessive loading. This notification letter is a reminder to inform clients applying adjustments to avoid further influence. At the moment, System Admin would not apply any execution against clients. System Admin will inform again if clients refuse to make adjustment or apply inappropriate adjustment might cause server overloading.<br><br>
-
-    What would CS Team need to do?<br><br>
-
+    <br>What would CS Team need to know?<br>
     Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
-
     More than 3 times within a second<br>
-    More than 600 times within 30 minutes.<br><br>
+    More than 600 times within 30 minutes.<br>
 
     Best Regards,<br>
     System Admin
@@ -318,6 +309,7 @@ elif option=="ST":
                 for acc_num, label in zip(account_list_ID, account_list_Currency):
                     if i == acc_num and label == "USC" and int(j)>400:
                         usc_string += i + ","
+                        # st.write(st2_result_df[st2_result_df.iloc[:, 1]==acc_num])
 
             if usc_string:
                 usc_string = usc_string.rstrip(",")  # Remove trailing comma, if any
@@ -362,10 +354,9 @@ elif option=="ST":
     st.write("4) Copy this to outlook:")
 
     st.markdown("""
-    Hi Team,<br><br><br><br>
+    Hi Team,<br><br>
 
-    We are writing to inform you that client’s trading behavior causing excessive server load.<br><br>
-
+    We are writing to inform you that client’s trading behavior causing excessive server load.<br>
     Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br><br>
 
     <u><strong>ST</strong></u>
@@ -396,18 +387,14 @@ elif option=="ST":
     unsafe_allow_html=True
     )
     st.markdown("""
-    <br><br>
+    <br>
 
-    What would CS Team need to know?<br><br>
-
-    The clients were informed because of Hyperactive EA Trading might cause server excessive loading. This notification letter is a reminder to inform clients applying adjustments to avoid further influence. At the moment, System Admin would not apply any execution against clients. System Admin will inform again if clients refuse to make adjustment or apply inappropriate adjustment might cause server overloading.<br><br>
-
-    What would CS Team need to do?<br><br>
+    What would CS Team need to do?<br><br><br>
 
     Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
 
     More than 3 times within a second<br>
-    More than 600 times within 30 minutes.<br><br>
+    More than 600 times within 30 minutes.<br><br><br>
 
     Best Regards,<br>
     System Admin
@@ -588,15 +575,13 @@ elif option=="PU":
     st.write("5) Copy this to outlook:")
 
     st.markdown("""
-    Hi Team,<br><br><br><br>
+    Hi Team,<br><br>
 
-    We are writing to inform you that client’s trading behavior causing excessive server load.<br><br>
-
-    Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br><br>
+    We are writing to let you know that clients listed are trading excessively with over 20,000 orders per week with order modification. Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br>
 
     """, unsafe_allow_html=True)
     if pu_pasted_text:
-        st.markdown("<u><strong>PU</strong></u>", unsafe_allow_html=True)
+        st.markdown("<br><u><strong>PU</strong></u>", unsafe_allow_html=True)
         st.markdown(
         pu_result_df.iloc[:, [1]].to_html(index=False, header=False),
         unsafe_allow_html=True
@@ -673,7 +658,7 @@ elif option=="PU":
         unsafe_allow_html=True
         )
     st.markdown("""
-    <br><br>
+    <br>
 
     What would CS Team need to know?<br><br>
 
@@ -684,7 +669,7 @@ elif option=="PU":
     Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
 
     More than 3 times within a second<br>
-    More than 600 times within 30 minutes.<br><br>
+    More than 600 times within 30 minutes.<br><br><br>
 
     Best Regards,<br>
     System Admin
