@@ -5,6 +5,7 @@ import ast
 from pymongo import MongoClient
 import pymongo
 import clipboard
+import pyperclip as clipboard
 
 
 import streamlit as st
@@ -207,7 +208,8 @@ if option=="UM":
 
     email_body = 'Hi Team,\n\nWe are writing to inform you that client’s trading behavior causing excessive server load.\n\nPlease inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.\n\n\n\nWhat would CS Team need to do?\nPlease kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."\n\nMore than 3 times within a second\nMore than 600 times within 30 minutes.\n\nBest Regards,\nSystem Admin'
 
-    st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+    # st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+    st.text_area("Copy Email", email_body, height=300)
 
 
 
@@ -411,7 +413,8 @@ elif option=="ST":
     
     email_body = 'Hi Team,\n\nWe are writing to inform you that client’s trading behavior causing excessive server load.\nPlease inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.\n\n\n\nWhat would CS Team need to do?\n\n\nPlease kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."\n\nMore than 3 times within a second\nMore than 600 times within 30 minutes.\n\n\nBest Regards,\nSystem Admin'
 
-    st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+    # st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+    st.text_area("Copy Email Format", email_body, height=300)
 
 
     st.write("5) Copy and paste table using **Ctrl+V**")
@@ -445,8 +448,9 @@ elif option=="ST":
     st_string+="\nST4\n"
     for i in st4_result_df[1]:
         st_string+=i+"\n"
-    st.button("Copy ST Table",on_click=on_copy_click, args=(st_string[:-1],))
+    # st.button("Copy ST Table",on_click=on_copy_click, args=(st_string[:-1],))
 
+    st.text_area("Copy ST Table", st_string[:-1], height=300)
 
 
     
@@ -726,7 +730,9 @@ elif option=="PU":
     
     email_body = 'Hi Team,\n\nWe are writing to let you know that clients listed are trading excessively with over 20,000 orders per week with order modification. Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.\n\n\n\nWhat would CS Team need to know?\n\nThe clients were informed because of Hyperactive EA Trading might cause server excessive loading. This notification letter is a reminder to inform clients applying adjustments to avoid further influence. At the moment, System Admin would not apply any execution against clients. System Admin will inform again if clients refuse to make adjustment or apply inappropriate adjustment might cause server overloading.\n\nWhat would CS Team need to do?\n\nPlease kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."\n\nMore than 3 times within a second\nMore than 600 times within 30 minutes.\n\n\nBest Regards,\nSystem Admin'
 
-    st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+    # st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+    st.text_area("Copy Email Format", email_body, height=300)
+
 
 
     st.write("5) Copy and paste table using **Ctrl+V**")
@@ -765,4 +771,6 @@ elif option=="PU":
         pu_string += "\nPU7\n"
         for i in pu7_result_df[1]:
             pu_string += i + "\n"
-    st.button("Copy PU Table", on_click=on_copy_click, args=(pu_string[:-1],))
+    # st.button("Copy PU Table", on_click=on_copy_click, args=(pu_string[:-1],))
+    st.text_area("Copy Email Format", pu_string[:-1], height=300)
+
