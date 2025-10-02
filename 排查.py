@@ -4,7 +4,8 @@ from io import StringIO
 import ast
 from pymongo import MongoClient
 import pymongo
-       
+import clipboard
+
 
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
@@ -22,7 +23,9 @@ def clean_cell(cell):
             return cell
     else:
         return cell
-
+def on_copy_click(text):
+    clipboard.copy(text)
+    # st.success('Text copied successfully!')
 # mongo_uri = "mongodb+srv://yimingchonghytech:Amaci123456789012!@cluster0.fwtqwlo.mongodb.net/"
 # client = MongoClient(mongo_uri)
 
@@ -121,7 +124,6 @@ if option=="UM":
             # Clean columns 1, 2, 3 to unpack any stringified lists
             for col in um2_result_df.columns[1:]:
                 um2_result_df[col] = um2_result_df[col].apply(clean_cell)
-            print(um2_result_df)
             st.success(f'UM2 Count: {len(um2_result_df)}')
 
             st.dataframe(um2_result_df.iloc[:, [0, 1]])
@@ -169,15 +171,15 @@ if option=="UM":
     
 
 
-    st.write("5) Copy this to outlook:")
+    st.write("5) Copy and paste this to outlook using **Ctrl+V**")
 
-    st.markdown("""
-    Hi Team,<br><br>
+    # st.markdown("""
+    # Hi Team,<br><br>
 
-    We are writing to inform you that client’s trading behavior causing excessive server load.<br><br>
-    Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.
+    # We are writing to inform you that client’s trading behavior causing excessive server load.<br><br>
+    # Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.
 
-    """, unsafe_allow_html=True)
+    # """, unsafe_allow_html=True)
 
     # if risk_tool_pasted_text:
     #     st.markdown("""<u><strong>UM</strong></u>""",unsafe_allow_html=True)
@@ -193,15 +195,21 @@ if option=="UM":
     #     risk_tool_df_2.iloc[:, [0,1,2,3,4,6]].to_html(index=False, header=False),
     #     unsafe_allow_html=True
     #     )
-    st.markdown("""
-    <br>What would CS Team need to know?<br>
-    Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
-    More than 3 times within a second<br>
-    More than 600 times within 30 minutes.<br>
+    # st.markdown("""
+    # <br>What would CS Team need to know?<br>
+    # Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
+    # More than 3 times within a second<br>
+    # More than 600 times within 30 minutes.<br>
 
-    Best Regards,<br>
-    System Admin
-    """, unsafe_allow_html=True)
+    # Best Regards,<br>
+    # System Admin
+    # """, unsafe_allow_html=True)
+
+    email_body = 'Hi Team,\n\nWe are writing to inform you that client’s trading behavior causing excessive server load.\n\nPlease inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.\n\n\n\nWhat would CS Team need to do?\nPlease kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."\n\nMore than 3 times within a second\nMore than 600 times within 30 minutes.\n\nBest Regards,\nSystem Admin'
+
+    st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+
+
 
 elif option=="ST":
 
@@ -247,7 +255,7 @@ elif option=="ST":
                 st_result_df[col] = st_result_df[col].apply(clean_cell)
 
             st.success(f'ST Count: {len(st_result_df)}')
-            st.dataframe(st_result_df.iloc[:, 1])
+            # st.dataframe(st_result_df.iloc[:, 1])
 
 
 
@@ -276,7 +284,7 @@ elif option=="ST":
                 st2_result_df[col] = st2_result_df[col].apply(clean_cell)
 
             st.success(f'ST2 Count: {len(st2_result_df)}')
-            st.dataframe(st2_result_df.iloc[:, 1])
+            # st.dataframe(st2_result_df.iloc[:, 1])
             st.write("Accounts")
             url = "https://docs.google.com/spreadsheets/d/1ImBMnjPD8xsXnqrejd7W2Y2vtREP6tvwox-XJf3mkXA/edit?usp=sharing"
 
@@ -342,7 +350,7 @@ elif option=="ST":
                 st4_result_df[col] = st4_result_df[col].apply(clean_cell)
 
             st.success(f'ST4 Count: {len(st4_result_df)}')
-            st.dataframe(st4_result_df.iloc[:, 1])
+            # st.dataframe(st4_result_df.iloc[:, 1])
 
         except Exception as e:
             st.error(f"Error parsing ST4 table: {e}")
@@ -351,54 +359,95 @@ elif option=="ST":
     st.write(usc_string)
 
 
-    st.write("4) Copy this to outlook:")
+    st.write("4) Copy and paste this to outlook using **Ctrl+V**")
 
-    st.markdown("""
-    Hi Team,<br><br>
+    # st.markdown("""
+    # Hi Team,<br><br>
 
-    We are writing to inform you that client’s trading behavior causing excessive server load.<br>
-    Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br><br>
+    # We are writing to inform you that client’s trading behavior causing excessive server load.<br>
+    # Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br><br>
 
-    <u><strong>ST</strong></u>
-    """, unsafe_allow_html=True)
+    # <u><strong>ST</strong></u>
+    # """, unsafe_allow_html=True)
 
-    st.markdown(
-    st_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
+    # st.markdown(
+    # st_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    # unsafe_allow_html=True
+    # )
 
-    st.markdown("""
-    <br>
+    # st.markdown("""
+    # <br>
 
-    <u><strong>ST2</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-    st2_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
+    # <u><strong>ST2</strong></u>
+    # """, unsafe_allow_html=True)
+    # st.markdown(
+    # st2_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    # unsafe_allow_html=True
+    # )
 
-    st.markdown("""
-    <br>
+    # st.markdown("""
+    # <br>
 
-    <u><strong>ST4</strong></u>
-    """, unsafe_allow_html=True)
-    st.markdown(
-    st4_result_df.iloc[:, [1]].to_html(index=False, header=False),
-    unsafe_allow_html=True
-    )
-    st.markdown("""
-    <br>
+    # <u><strong>ST4</strong></u>
+    # """, unsafe_allow_html=True)
+    # st.markdown(
+    # st4_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    # unsafe_allow_html=True
+    # )
+    # st.markdown("""
+    # <br>
 
-    What would CS Team need to do?<br><br><br>
+    # What would CS Team need to do?<br><br><br>
 
-    Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
+    # Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
 
-    More than 3 times within a second<br>
-    More than 600 times within 30 minutes.<br><br><br>
+    # More than 3 times within a second<br>
+    # More than 600 times within 30 minutes.<br><br><br>
 
-    Best Regards,<br>
-    System Admin
-    """, unsafe_allow_html=True)
+    # Best Regards,<br>
+    # System Admin
+    # """, unsafe_allow_html=True)
+
+    
+    email_body = 'Hi Team,\n\nWe are writing to inform you that client’s trading behavior causing excessive server load.\nPlease inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.\n\n\n\nWhat would CS Team need to do?\n\n\nPlease kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."\n\nMore than 3 times within a second\nMore than 600 times within 30 minutes.\n\n\nBest Regards,\nSystem Admin'
+
+    st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+
+
+    st.write("5) Copy and paste table using **Ctrl+V**")
+
+    # st1_string="ST\n"
+    # for i in st_result_df[1]:
+    #     st1_string+=i+"\n"
+    # st.button("Copy ST",on_click=on_copy_click, args=(st1_string[:-1],))
+
+    # st2_string="ST2\n"
+    # for i in st2_result_df[1]:
+    #     st2_string+=i+"\n"
+    # st.button("Copy ST2",on_click=on_copy_click, args=(st2_string[:-1],))
+
+
+    # st4_string="ST4\n"
+    # for i in st4_result_df[1]:
+    #     st4_string+=i+"\n"
+    # st.button("Copy ST4",on_click=on_copy_click, args=(st4_string[:-1],))
+
+
+    st_string="ST\n"
+    for i in st_result_df[1]:
+        st_string+=i+"\n"
+
+    st_string+="\nST2\n"
+    for i in st2_result_df[1]:
+        st_string+=i+"\n"
+
+
+    st_string+="\nST4\n"
+    for i in st4_result_df[1]:
+        st_string+=i+"\n"
+    st.button("Copy ST Table",on_click=on_copy_click, args=(st_string[:-1],))
+
+
 
     
             
@@ -446,7 +495,7 @@ elif option=="PU":
                 pu_result_df[col] = pu_result_df[col].apply(clean_cell)
 
             st.success(f'PU Count: {len(pu_result_df)}')
-            st.dataframe(pu_result_df.iloc[:, 1])
+            # st.dataframe(pu_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU2: {e}")
     if pu2_pasted_text:
@@ -465,7 +514,7 @@ elif option=="PU":
                 pu2_result_df[col] = pu2_result_df[col].apply(clean_cell)
 
             st.success(f'PU2 Count: {len(pu2_result_df)}')
-            st.dataframe(pu2_result_df.iloc[:, 1])
+            # st.dataframe(pu2_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU2: {e}")
 
@@ -485,7 +534,7 @@ elif option=="PU":
                 pu3_result_df[col] = pu3_result_df[col].apply(clean_cell)
 
             st.success(f'PU3 Count: {len(pu3_result_df)}')
-            st.dataframe(pu3_result_df.iloc[:, 1])
+            # st.dataframe(pu3_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU3: {e}")
 
@@ -506,7 +555,7 @@ elif option=="PU":
                 pu4_result_df[col] = pu4_result_df[col].apply(clean_cell)
 
             st.success(f'PU4 Count: {len(pu4_result_df)}')
-            st.dataframe(pu4_result_df.iloc[:, 1])
+            # st.dataframe(pu4_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU4: {e}")
 
@@ -527,7 +576,7 @@ elif option=="PU":
                 pu5_result_df[col] = pu5_result_df[col].apply(clean_cell)
 
             st.success(f'PU5 Count: {len(pu5_result_df)}')
-            st.dataframe(pu5_result_df.iloc[:, 1])
+            # st.dataframe(pu5_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU5: {e}")
 
@@ -548,7 +597,7 @@ elif option=="PU":
                 pu6_result_df[col] = pu6_result_df[col].apply(clean_cell)
 
             st.success(f'PU6 Count: {len(pu6_result_df)}')
-            st.dataframe(pu6_result_df.iloc[:, 1])
+            # st.dataframe(pu6_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU6: {e}")
 
@@ -569,112 +618,151 @@ elif option=="PU":
                 pu7_result_df[col] = pu7_result_df[col].apply(clean_cell)
 
             st.success(f'PU7 Count: {len(pu7_result_df)}')
-            st.dataframe(pu7_result_df.iloc[:, 1])
+            # st.dataframe(pu7_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU7: {e}")
     st.write("5) Copy this to outlook:")
 
-    st.markdown("""
-    Hi Team,<br><br>
+    # st.markdown("""
+    # Hi Team,<br><br>
 
-    We are writing to let you know that clients listed are trading excessively with over 20,000 orders per week with order modification. Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br>
+    # We are writing to let you know that clients listed are trading excessively with over 20,000 orders per week with order modification. Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.<br>
 
-    """, unsafe_allow_html=True)
-    if pu_pasted_text:
-        st.markdown("<br><u><strong>PU</strong></u>", unsafe_allow_html=True)
-        st.markdown(
-        pu_result_df.iloc[:, [1]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-        )
+    # """, unsafe_allow_html=True)
+    # if pu_pasted_text:
+    #     st.markdown("<br><u><strong>PU</strong></u>", unsafe_allow_html=True)
+    #     st.markdown(
+    #     pu_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    #     unsafe_allow_html=True
+    #     )
     
-    if pu2_pasted_text:
-        st.markdown("""
-        <br>
+    # if pu2_pasted_text:
+    #     st.markdown("""
+    #     <br>
 
-        <u><strong>PU2</strong></u>
-        """, unsafe_allow_html=True)
-        st.markdown(
-        pu2_result_df.iloc[:, [1]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-        )
+    #     <u><strong>PU2</strong></u>
+    #     """, unsafe_allow_html=True)
+    #     st.markdown(
+    #     pu2_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    #     unsafe_allow_html=True
+    #     )
+
+    # if pu3_pasted_text:
+
+    #     st.markdown("""
+    #     <br>
+
+    #     <u><strong>PU3</strong></u>
+    #     """, unsafe_allow_html=True)
+    #     st.markdown(
+    #     pu3_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    #     unsafe_allow_html=True
+    #     )
+
+    # if pu4_pasted_text:
+
+    #     st.markdown("""
+    #     <br>
+
+    #     <u><strong>PU4</strong></u>
+    #     """, unsafe_allow_html=True)
+    #     st.markdown(
+    #     pu4_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    #     unsafe_allow_html=True
+    #     )
+
+    # if pu5_pasted_text:
+
+    #     st.markdown("""
+    #     <br>
+
+    #     <u><strong>PU5</strong></u>
+    #     """, unsafe_allow_html=True)
+    #     st.markdown(
+    #     pu5_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    #     unsafe_allow_html=True
+    #     )
+
+    # if pu6_pasted_text:
+
+    #     st.markdown("""
+    #     <br>
+
+    #     <u><strong>PU6</strong></u>
+    #     """, unsafe_allow_html=True)
+    #     st.markdown(
+    #     pu6_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    #     unsafe_allow_html=True
+    #     )
+
+    # if pu7_pasted_text:
+
+    #     st.markdown("""
+    #     <br>
+
+    #     <u><strong>PU7</strong></u>
+    #     """, unsafe_allow_html=True)
+    #     st.markdown(
+    #     pu7_result_df.iloc[:, [1]].to_html(index=False, header=False),
+    #     unsafe_allow_html=True
+    #     )
+    # st.markdown("""
+    # <br>
+
+    # What would CS Team need to know?<br><br>
+
+    # The clients were informed because of Hyperactive EA Trading might cause server excessive loading. This notification letter is a reminder to inform clients applying adjustments to avoid further influence. At the moment, System Admin would not apply any execution against clients. System Admin will inform again if clients refuse to make adjustment or apply inappropriate adjustment might cause server overloading.<br><br>
+
+    # What would CS Team need to do?<br><br>
+
+    # Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
+
+    # More than 3 times within a second<br>
+    # More than 600 times within 30 minutes.<br><br><br>
+
+    # Best Regards,<br>
+    # System Admin
+    # """, unsafe_allow_html=True)
+    
+    email_body = 'Hi Team,\n\nWe are writing to let you know that clients listed are trading excessively with over 20,000 orders per week with order modification. Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.\n\n\n\nWhat would CS Team need to know?\n\nThe clients were informed because of Hyperactive EA Trading might cause server excessive loading. This notification letter is a reminder to inform clients applying adjustments to avoid further influence. At the moment, System Admin would not apply any execution against clients. System Admin will inform again if clients refuse to make adjustment or apply inappropriate adjustment might cause server overloading.\n\nWhat would CS Team need to do?\n\nPlease kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."\n\nMore than 3 times within a second\nMore than 600 times within 30 minutes.\n\n\nBest Regards,\nSystem Admin'
+
+    st.button("Copy Email Format",on_click=on_copy_click, args=(email_body,))
+
+
+    st.write("5) Copy and paste table using **Ctrl+V**")
+
+    if pu_pasted_text:
+        pu_string = "PU\n"
+        for i in pu_result_df[1]:
+            pu_string += i + "\n"
+
+    if pu2_pasted_text:
+        pu_string += "\nPU2\n"
+        for i in pu2_result_df[1]:
+            pu_string += i + "\n"
 
     if pu3_pasted_text:
-
-        st.markdown("""
-        <br>
-
-        <u><strong>PU3</strong></u>
-        """, unsafe_allow_html=True)
-        st.markdown(
-        pu3_result_df.iloc[:, [1]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-        )
+        pu_string += "\nPU3\n"
+        for i in pu3_result_df[1]:
+            pu_string += i + "\n"
 
     if pu4_pasted_text:
-
-        st.markdown("""
-        <br>
-
-        <u><strong>PU4</strong></u>
-        """, unsafe_allow_html=True)
-        st.markdown(
-        pu4_result_df.iloc[:, [1]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-        )
+        pu_string += "\nPU4\n"
+        for i in pu4_result_df[1]:
+            pu_string += i + "\n"
 
     if pu5_pasted_text:
-
-        st.markdown("""
-        <br>
-
-        <u><strong>PU5</strong></u>
-        """, unsafe_allow_html=True)
-        st.markdown(
-        pu5_result_df.iloc[:, [1]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-        )
+        pu_string += "\nPU5\n"
+        for i in pu5_result_df[1]:
+            pu_string += i + "\n"
 
     if pu6_pasted_text:
-
-        st.markdown("""
-        <br>
-
-        <u><strong>PU6</strong></u>
-        """, unsafe_allow_html=True)
-        st.markdown(
-        pu6_result_df.iloc[:, [1]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-        )
+        pu_string += "\nPU6\n"
+        for i in pu6_result_df[1]:
+            pu_string += i + "\n"
 
     if pu7_pasted_text:
-
-        st.markdown("""
-        <br>
-
-        <u><strong>PU7</strong></u>
-        """, unsafe_allow_html=True)
-        st.markdown(
-        pu7_result_df.iloc[:, [1]].to_html(index=False, header=False),
-        unsafe_allow_html=True
-        )
-    st.markdown("""
-    <br>
-
-    What would CS Team need to know?<br><br>
-
-    The clients were informed because of Hyperactive EA Trading might cause server excessive loading. This notification letter is a reminder to inform clients applying adjustments to avoid further influence. At the moment, System Admin would not apply any execution against clients. System Admin will inform again if clients refuse to make adjustment or apply inappropriate adjustment might cause server overloading.<br><br>
-
-    What would CS Team need to do?<br><br>
-
-    Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc."<br><br>
-
-    More than 3 times within a second<br>
-    More than 600 times within 30 minutes.<br><br><br>
-
-    Best Regards,<br>
-    System Admin
-    """, unsafe_allow_html=True)
-
-    
-            
-
+        pu_string += "\nPU7\n"
+        for i in pu7_result_df[1]:
+            pu_string += i + "\n"
+    st.button("Copy PU Table", on_click=on_copy_click, args=(pu_string[:-1],))
