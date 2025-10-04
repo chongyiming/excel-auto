@@ -2,7 +2,6 @@ import pandas as pd
 import streamlit as st
 import pandas as pd
 from io import StringIO
-from itables.streamlit import interactive_table
 
 
 sheet1 = st.text_area("Account", height=200, key="Account")
