@@ -101,8 +101,13 @@ pages = {
         # st.Page("account_lists.py", title="Account")
 
     ],
+    "Unused Groups": [
+        st.Page("unused_groups.py", title="Unused Groups"),
+        # st.Page("account_lists.py", title="Account")
+
+    ],
     "我们怀念你": [
-        st.Page("unused_groups.py", title="Chloe Ngu - unused groups"),
+        st.Page("testing.py", title="安息吧 🩻"),
         # st.Page("account_lists.py", title="Account")
 
     ],
