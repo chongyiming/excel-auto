@@ -107,7 +107,7 @@ pages = {
 
     ],
     "我们怀念你": [
-        st.Page("testing.py", title="安息吧 🩻"),
+        st.Page("testing.py", title="下线名单"),
         # st.Page("account_lists.py", title="Account")
 
     ],
