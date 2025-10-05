@@ -7,7 +7,7 @@ data = [
     ['Ivan Wong'],
     ['Wei Ming'],
     ['Chloe Ngu'],
-    ['Amber Tai Suet Ping'],
+    ['Amber Tai'],
 
 ]
 df = pd.DataFrame(data, columns=['Name'])
