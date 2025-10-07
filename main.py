@@ -103,6 +103,8 @@ pages = {
     ],
     "Unused Groups": [
         st.Page("unused_groups.py", title="Unused Groups"),
+        st.Page("group_count.py", title="Group Count")
+
         # st.Page("account_lists.py", title="Account")
 
     ],

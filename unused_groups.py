@@ -8,7 +8,6 @@ sheet1 = st.text_area("Account", height=200, key="Account")
 sheet2 = st.text_area("Group", height=200, key="Group")
 
 sheet1_df = pd.read_csv(StringIO(sheet1), sep="\t", header=None)
-
 groups_in_sheet1 = sheet1_df.iloc[:, 2].dropna().unique()
 
 
