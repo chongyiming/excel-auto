@@ -8,6 +8,7 @@ from typing import List, Tuple, Dict, Set, Optional
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill
 from openpyxl.utils import get_column_letter
+from datetime import datetime, timedelta
 
 DAY_ALIASES = {
     'monday':'MON','mon':'MON','MON':'MON',
@@ -236,10 +237,38 @@ uploaded_file = st.file_uploader("Upload阶梯式杠杆Symbol筛选模板",key="
 rows=[]
 if uploaded_file is not None:
     f1_dataframe = pd.read_excel(uploaded_file,sheet_name="Market News_for_admin")
-    f1_dataframe=f1_dataframe.iloc[:, 5:9]
-    f1_dataframe.rename(columns={f1_dataframe.columns[2]: 'Day'}, inplace=True)
-    st.dataframe(f1_dataframe)
+    # f1_dataframe=f1_dataframe.iloc[:, 5:9]
+    # f1_dataframe.rename(columns={f1_dataframe.columns[2]: 'Day'}, inplace=True)
+    # st.dataframe(f1_dataframe)
+    f1_dataframe=f1_dataframe.iloc[:, 0:4]
+        
+    f1_dataframe['Time_DT'] = f1_dataframe['Time (GMT+3)'].apply(
+    lambda t: datetime.combine(datetime.today(), t)
+    )
 
+    # Now perform the timedelta operations
+    f1_dataframe['-15 分钟'] = f1_dataframe['Time_DT'] - pd.Timedelta(minutes=15)
+    f1_dataframe['+5 分钟'] = f1_dataframe['Time_DT'] + pd.Timedelta(minutes=5)
+
+    # (Optional) If you only want the time part back:
+    f1_dataframe['-15 分钟'] = f1_dataframe['-15 分钟'].dt.time
+    f1_dataframe['+5 分钟'] = f1_dataframe['+5 分钟'].dt.time
+
+    # (Optional) Drop the temporary datetime column
+    f1_dataframe.drop(columns=['Time_DT'], inplace=True)
+
+    f1_dataframe['Day'] = f1_dataframe['Date'].dt.day_name().str[:3].str.upper()
+    # f1_dataframe.rename(columns={f1_dataframe.columns[2]: 'Day'}, inplace=True)
+
+    for idx, row in f1_dataframe.iterrows():
+        if row['Currency/Country'].strip() == "OIL":
+            f1_dataframe.at[idx, 'Profile'] = "Oil"
+        elif row['Currency/Country'].strip() == "USD":
+            f1_dataframe.at[idx, 'Profile'] = "Forex,Gold,Indices"
+        else:
+            f1_dataframe.at[idx, 'Profile'] = "Forex"
+    f1_dataframe=f1_dataframe.iloc[:, 4:9]
+    st.dataframe(f1_dataframe)
 
     for _, row in f1_dataframe.iterrows():
         if pd.isna(row['-15 分钟']) or pd.isna(row['+5 分钟']) or pd.isna(row['Day']):
