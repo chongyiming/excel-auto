@@ -14,11 +14,14 @@ if uploaded_file is not None:
     for server in unique_servers:
         server_rows = sheet2_df[sheet2_df['Server_Name'] == server]
         logins = server_rows['login'].astype(str).tolist()
-
-        for i in range(0, len(logins), 14):
-            chunk = logins[i:i+14]
+        if server == 'inf_mt5':
+            end=14
+        else:
+            end=7
+        for i in range(0, len(logins), end):
+            chunk = logins[i:i+end]
             concatenated = ",".join(chunk)
-            chunk_number = (i // 14) + 1
+            chunk_number = (i // end) + 1
             chunk_results.append({
                 'Server_Name': server,
                 'Chunk_Number': chunk_number,
@@ -29,7 +32,6 @@ if uploaded_file is not None:
 
     for _, row in chunk_df.iterrows():
         st.markdown(f"**Server:** {row['Server_Name']}")
-        # st.markdown(f"**Logins:** {row['Login_Chunk']}")
         st.code(row['Login_Chunk'], language="text")
         st.markdown("---")  # Divider line
 
