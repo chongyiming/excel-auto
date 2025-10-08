@@ -29,6 +29,7 @@ if uploaded_file is not None:
 
     for _, row in chunk_df.iterrows():
         st.markdown(f"**Server:** {row['Server_Name']}")
-        st.markdown(f"**Logins:** {row['Login_Chunk']}")
+        # st.markdown(f"**Logins:** {row['Login_Chunk']}")
+        st.code(row['Login_Chunk'], language="text")
         st.markdown("---")  # Divider line
 
