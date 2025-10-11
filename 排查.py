@@ -295,7 +295,7 @@ elif option=="ST":
 
             conn = st.connection("gsheets", type=GSheetsConnection)
 
-            data = conn.read(spreadsheet=url, worksheet="Sheet1", usecols=list(range(2)))
+            data = conn.read(spreadsheet=url, usecols=list(range(2)))
             st.dataframe(data)
             # account_list = pd.read_csv("account.csv", sep="\t", header=None)
             # account_list = account_list.iloc[1:, :]  # skip header
