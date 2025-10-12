@@ -2,6 +2,8 @@ import pandas as pd
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
+st.cache_data.clear()
+
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 data = conn.read(worksheet="Sheet1", usecols=list(range(2)))
