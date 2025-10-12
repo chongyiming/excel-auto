@@ -11,4 +11,6 @@ new_data=pd.DataFrame([{"Name":"yes",
 with st.form(key="form"):
     info=st.text_area(label="info")
     submit_button=st.form_submit_button(label="submit")
-    conn.update(data=new_data)
+
+    if submit_button:
+        conn.update(data=new_data)
