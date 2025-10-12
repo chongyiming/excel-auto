@@ -99,8 +99,6 @@ pages = {
     "负载排查": [
         st.Page("排查.py", title="排查"),
         st.Page("equity_less_than_5k.py", title="Equity Less than 5k"),
-        st.Page("testingsave.py", title="testing"),
-
 
         # st.Page("account_lists.py", title="Account")
 
