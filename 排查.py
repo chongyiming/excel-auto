@@ -221,7 +221,7 @@ elif option=="ST":
     conn = st.connection("gsheets", type=GSheetsConnection)
 
     with st.form(key="form"):
-        submit_button=st.form_submit_button(label="submit")
+        submit_button=st.form_submit_button(label="Press this before proceed")
         if submit_button:
             conn.update(worksheet="Sheet1",data=pd.DataFrame(columns=["Name"]))
             conn.update(worksheet="Sheet2",data=pd.DataFrame(columns=["Name"]))
@@ -516,6 +516,19 @@ elif option=="ST":
             
 
 elif option=="PU":
+    conn = st.connection("gsheets", type=GSheetsConnection)
+
+    with st.form(key="form"):
+        submit_button=st.form_submit_button(label="Press this before proceed")
+        if submit_button:
+            conn.update(worksheet="PU1",data=pd.DataFrame(columns=["Name"]))
+            conn.update(worksheet="PU2",data=pd.DataFrame(columns=["Name"]))
+            conn.update(worksheet="PU3",data=pd.DataFrame(columns=["Name"]))
+            conn.update(worksheet="PU4",data=pd.DataFrame(columns=["Name"]))
+            conn.update(worksheet="PU5",data=pd.DataFrame(columns=["Name"]))
+            conn.update(worksheet="PU6",data=pd.DataFrame(columns=["Name"]))
+            conn.update(worksheet="PU7",data=pd.DataFrame(columns=["Name"]))
+
     st.write("2) Paste Per seconds modified here:")
 
     pu_col1, pu_col2, pu_col3, pu_col4, pu_col5, pu_col6, pu_col7 = st.columns(7)
@@ -559,6 +572,16 @@ elif option=="PU":
 
             st.success(f'PU Count: {len(pu_result_df)}')
             # st.dataframe(pu_result_df.iloc[:, 1])
+
+
+            data = conn.read(worksheet="PU1", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = pu_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="PU1",data=new_data)
         except Exception as e:
             st.error(f"Error parsing PU2: {e}")
     if pu2_pasted_text:
@@ -577,6 +600,15 @@ elif option=="PU":
                 pu2_result_df[col] = pu2_result_df[col].apply(clean_cell)
 
             st.success(f'PU2 Count: {len(pu2_result_df)}')
+
+            data = conn.read(worksheet="PU2", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = pu2_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="PU2",data=new_data)
             # st.dataframe(pu2_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU2: {e}")
@@ -598,6 +630,15 @@ elif option=="PU":
 
             st.success(f'PU3 Count: {len(pu3_result_df)}')
             # st.dataframe(pu3_result_df.iloc[:, 1])
+
+            data = conn.read(worksheet="PU3", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = pu3_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="PU3",data=new_data)
         except Exception as e:
             st.error(f"Error parsing PU3: {e}")
 
@@ -619,6 +660,15 @@ elif option=="PU":
 
             st.success(f'PU4 Count: {len(pu4_result_df)}')
             # st.dataframe(pu4_result_df.iloc[:, 1])
+
+            data = conn.read(worksheet="PU4", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = pu4_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="PU4",data=new_data)
         except Exception as e:
             st.error(f"Error parsing PU4: {e}")
 
@@ -640,6 +690,15 @@ elif option=="PU":
 
             st.success(f'PU5 Count: {len(pu5_result_df)}')
             # st.dataframe(pu5_result_df.iloc[:, 1])
+
+            data = conn.read(worksheet="PU5", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = pu5_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="PU5",data=new_data)
         except Exception as e:
             st.error(f"Error parsing PU5: {e}")
 
@@ -661,6 +720,14 @@ elif option=="PU":
 
             st.success(f'PU6 Count: {len(pu6_result_df)}')
             # st.dataframe(pu6_result_df.iloc[:, 1])
+            data = conn.read(worksheet="PU6", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = pu6_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="PU6",data=new_data)
         except Exception as e:
             st.error(f"Error parsing PU6: {e}")
 
@@ -682,6 +749,14 @@ elif option=="PU":
 
             st.success(f'PU7 Count: {len(pu7_result_df)}')
             # st.dataframe(pu7_result_df.iloc[:, 1])
+            data = conn.read(worksheet="PU7", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = pu7_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="PU7",data=new_data)
         except Exception as e:
             st.error(f"Error parsing PU7: {e}")
     # st.write("5) Copy this to outlook:")
