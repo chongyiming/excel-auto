@@ -218,7 +218,16 @@ if option=="UM":
 
 elif option=="ST":
 
-    
+    conn = st.connection("gsheets", type=GSheetsConnection)
+
+    with st.form(key="form"):
+        submit_button=st.form_submit_button(label="submit")
+        if submit_button:
+            conn.update(worksheet="Sheet1",data=pd.DataFrame(columns=["Name"]))
+            conn.update(worksheet="Sheet2",data=pd.DataFrame(columns=["Name"]))
+            conn.update(worksheet="Sheet3",data=pd.DataFrame(columns=["Name"]))
+
+
     
     usc_string = ""
 
@@ -260,6 +269,18 @@ elif option=="ST":
                 st_result_df[col] = st_result_df[col].apply(clean_cell)
 
             st.success(f'ST Count: {len(st_result_df)}')
+
+            
+            # conn = st.connection("gsheets", type=GSheetsConnection)
+
+            data = conn.read(worksheet="Sheet1", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = st_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="Sheet1",data=new_data)
             # st.dataframe(st_result_df.iloc[:, 1])
 
 
@@ -291,11 +312,11 @@ elif option=="ST":
             st.success(f'ST2 Count: {len(st2_result_df)}')
             # st.dataframe(st2_result_df.iloc[:, 1])
             st.write("Accounts")
-            url = "https://docs.google.com/spreadsheets/d/1ImBMnjPD8xsXnqrejd7W2Y2vtREP6tvwox-XJf3mkXA/edit?usp=sharing"
+            # url = "https://docs.google.com/spreadsheets/d/1ImBMnjPD8xsXnqrejd7W2Y2vtREP6tvwox-XJf3mkXA/edit?usp=sharing"
 
-            conn = st.connection("gsheets", type=GSheetsConnection)
+            # conn = st.connection("gsheets", type=GSheetsConnection)
 
-            data = conn.read(spreadsheet=url, usecols=list(range(2)))
+            data = conn.read(worksheet="Accounts", usecols=list(range(2)))
             st.dataframe(data)
             # account_list = pd.read_csv("account.csv", sep="\t", header=None)
             # account_list = account_list.iloc[1:, :]  # skip header
@@ -328,6 +349,16 @@ elif option=="ST":
                 usc_string = usc_string.rstrip(",")  # Remove trailing comma, if any
                 usc_accounts = usc_string.split(",")
 
+            # conn = st.connection("gsheets", type=GSheetsConnection)
+
+            data = conn.read(worksheet="Sheet2", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = st2_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="Sheet2",data=new_data)
 
 
         except Exception as e:
@@ -357,12 +388,23 @@ elif option=="ST":
             st.success(f'ST4 Count: {len(st4_result_df)}')
             # st.dataframe(st4_result_df.iloc[:, 1])
 
+            # conn = st.connection("gsheets", type=GSheetsConnection)
+
+            data = conn.read(worksheet="Sheet3", usecols=list(range(1)))
+            new_data=pd.DataFrame()
+            new_data['Name'] = st4_result_df[1]
+
+
+            # st.write(new_data)
+
+            conn.update(worksheet="Sheet3",data=new_data)
+
         except Exception as e:
             st.error(f"Error parsing ST4 table: {e}")
 
-    st.write("3) USC Users (Filter using Total > 400) and can add accounts [here](https://docs.google.com/spreadsheets/d/1ImBMnjPD8xsXnqrejd7W2Y2vtREP6tvwox-XJf3mkXA/edit?usp=sharing)")
+    st.write("3) USC Users (Filter using Total > 400) and can add accounts [here](https://docs.google.com/spreadsheets/d/1R1bndk9Pb8N3oXP_8TB0xmHpigP7OMer4qtOmL58yks/edit?usp=sharing)")
     st.write(usc_string)
-
+    
 
     st.write("4) Copy and paste this to outlook")
 
