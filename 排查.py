@@ -339,26 +339,39 @@ elif option=="ST":
             account_list_Currency = data['Currency'].astype(str).str.strip()
             st2_result_df.iloc[:, 1] = st2_result_df.iloc[:, 1].astype(str).str.strip()
 
+            ban_list=[]
             for i, j in zip(st2_result_df.iloc[:, 1], st2_result_df.iloc[:, 3]):
                 for acc_num, label in zip(account_list_ID, account_list_Currency):
                     if i == acc_num and label == "USC" and int(j)>400:
                         usc_string += i + ","
+                        ban_list.append(i)
                         # st.write(st2_result_df[st2_result_df.iloc[:, 1]==acc_num])
 
             if usc_string:
                 usc_string = usc_string.rstrip(",")  # Remove trailing comma, if any
                 usc_accounts = usc_string.split(",")
 
-            # conn = st.connection("gsheets", type=GSheetsConnection)
+            st2_result_df[0] = st2_result_df[0].apply(lambda x: pd.to_datetime(x.values[0]) if isinstance(x, pd.Series) else pd.to_datetime(x))
+            # st.dataframe(st2_result_df)
 
+            filtered_rows = []
+            for i, row in st2_result_df.iterrows():
+                if row[1] in ban_list:
+                    filtered_rows.append(row)
+
+            # Convert list of Series back to DataFrame
+            filtered_df = pd.DataFrame(filtered_rows)
+
+            # Display in Streamlit
+            st.dataframe(filtered_df)
             data = conn.read(worksheet="Sheet2", usecols=list(range(1)))
             new_data=pd.DataFrame()
             new_data['Name'] = st2_result_df[1]
-
+            conn.update(worksheet="Sheet2",data=new_data)
+            
 
             # st.write(new_data)
 
-            conn.update(worksheet="Sheet2",data=new_data)
 
 
         except Exception as e:
@@ -604,11 +617,11 @@ elif option=="PU":
             data = conn.read(worksheet="PU2", usecols=list(range(1)))
             new_data=pd.DataFrame()
             new_data['Name'] = pu2_result_df[1]
-
+            conn.update(worksheet="PU2",data=new_data)
 
             # st.write(new_data)
 
-            conn.update(worksheet="PU2",data=new_data)
+            
             # st.dataframe(pu2_result_df.iloc[:, 1])
         except Exception as e:
             st.error(f"Error parsing PU2: {e}")
