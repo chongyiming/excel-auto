@@ -524,9 +524,22 @@ elif option=="ST":
     st.code(final_email_body, language="text")
 
 
+    st2_mt4_text = st.text_area("ST2 Change Password Login Details")
+    st2_mt4 = pd.read_csv(StringIO(st2_mt4_text), sep="\t", header=None)
+    st2_mt4.iloc[:, 6] = (
+    st2_mt4.iloc[:, 6]
+    .astype(str)
+    .str.replace(r"[^\d.]", "", regex=True)
+    .str.strip()
+    )
 
-    
-            
+    # Now convert to numeric
+    st2_mt4.iloc[:, 6] = pd.to_numeric(st2_mt4.iloc[:, 6], errors='coerce')
+
+    # Calculate USD column
+    st2_mt4['USD'] = st2_mt4.iloc[:, 6] / 100
+
+    st.dataframe(st2_mt4.iloc[:, [0,6,7]])
 
 elif option=="PU":
     conn = st.connection("gsheets", type=GSheetsConnection)
