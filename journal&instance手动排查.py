@@ -8,13 +8,17 @@ option1 = st.selectbox(
 )
 server_option = st.selectbox(
     "Select Server",
-    ("ST2","ST4"),
+    ("ST1","ST2","ST4","UM","UM2"),
 )
 
 if server_option=="ST2":
     server="startrader2report"
 elif server_option=="ST4":
     server="startrader4report"
+elif server_option=="ST1":
+    server="ivreport"
+elif server_option=="UM":
+    server="oplreport"
 
 uploaded_file = st.file_uploader("Upload Excel File", key="excel")
 
@@ -68,8 +72,11 @@ if uploaded_file:
         filtered_count_series = count_series[count_series["Count"] > number]
         filtered_count_series1 = count_series1[count_series1["Count"] > number]
         filtered_count_series2 = count_series2[count_series2["Count"] > number]
- 
-        db=pymysql.connect(host = "live-mt4-reportdb-repl-sg-03.vi-data.net", port = 3306, user = "reader_MY", passwd = "GC+Pb#Fw6?X-", db = server)
+        if server_option == "ST2" or server_option == "ST4" or server_option == "UM":
+            db=pymysql.connect(host = "live-mt4-reportdb-repl-sg-03.vi-data.net", port = 3306, user = "reader_MY", passwd = "GC+Pb#Fw6?X-", db = server)
+        elif server_option == "ST1":
+            db=pymysql.connect(host = "live-mt4-reportdb-repl-sg-02.vi-data.net", port = 3306, user = "reader_MY", passwd = "GC+Pb#Fw6?X-", db = server)
+
         cursor=db.cursor()
         
         if len(filtered_count_series)>0:

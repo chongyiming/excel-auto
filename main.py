@@ -98,14 +98,11 @@ pages = {
     ],
     "负载排查": [
         st.Page("排查.py", title="排查"),
+        st.Page("排查 copy.py", title="排查 copy"),
+
         st.Page("equity_less_than_5k.py", title="Equity Less than 5k"),
         st.Page("free_memory.py", title="Free Memory"),
-        st.Page("journal&instance手动排查.py", title="Journal/Instance手动排查"),
-
-
-
-
-        # st.Page("account_lists.py", title="Account")
+        st.Page("journal&instance手动排查.py", title="Journal/Instance排查"),
 
     ],
     "Unused Groups": [
@@ -121,6 +118,7 @@ pages = {
         
 
     ],
+
     "我们怀念你": [
         st.Page("testing.py", title="下线名单"),
         # st.Page("account_lists.py", title="Account")
