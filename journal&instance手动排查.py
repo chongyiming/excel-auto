@@ -103,8 +103,8 @@ if uploaded_file:
             cursor.execute(sql1)
             data1 = cursor.fetchall()
             row1=pd.DataFrame(list(data1),columns=['login','name','group','balance'])
-            st.subheader("Modified Order Details")
-            st.dataframe(row)
+            st.subheader("No Money")
+            st.dataframe(row1)
 
         if len(filtered_count_series2)>0:
 

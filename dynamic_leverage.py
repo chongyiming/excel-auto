@@ -172,11 +172,11 @@ def _mm(s: str) -> str:
     
     # Handle HH:MM:SS directly
     if len(s.split(':')) == 3:
-        print("normal time",s)
+        # print("normal time",s)
         h, m, _ = s.split(':')
         return f"{int(h):02d}:{int(m):02d}"
     else:
-        print("abnormal time",s)
+        # print("abnormal time",s)
     m = TIME_12.match(s)
     if m:
         h, mi, ap = int(m.group(1)), int(m.group(2)), m.group(3).upper()
@@ -236,13 +236,23 @@ def save_to_excel(rows_out, out_xlsx):
 uploaded_file = st.file_uploader("Upload阶梯式杠杆Symbol筛选模板",key="compair")
 rows=[]
 if uploaded_file is not None:
-    f1_dataframe = pd.read_excel(uploaded_file,sheet_name="Market News_for_admin")
+    xls = pd.ExcelFile(uploaded_file)
+    
+    # Get all sheet names
+    sheet_names = xls.sheet_names
+    selected_sheet = st.selectbox("Select a sheet to view:", sheet_names)
+
+    option = st.selectbox(
+    "Select Time",
+    ("Time (GMT+2)","Time (GMT+3)"),
+    )
+    f1_dataframe = pd.read_excel(uploaded_file,sheet_name=selected_sheet)
     # f1_dataframe=f1_dataframe.iloc[:, 5:9]
     # f1_dataframe.rename(columns={f1_dataframe.columns[2]: 'Day'}, inplace=True)
     # st.dataframe(f1_dataframe)
     f1_dataframe=f1_dataframe.iloc[:, 0:4]
         
-    f1_dataframe['Time_DT'] = f1_dataframe['Time (GMT+3)'].apply(
+    f1_dataframe['Time_DT'] = f1_dataframe[option].apply(
     lambda t: datetime.combine(datetime.today(), t)
     )
 
