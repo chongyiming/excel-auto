@@ -172,11 +172,11 @@ def _mm(s: str) -> str:
     
     # Handle HH:MM:SS directly
     if len(s.split(':')) == 3:
-        # print("normal time",s)
+        print("normal time",s)
         h, m, _ = s.split(':')
         return f"{int(h):02d}:{int(m):02d}"
     else:
-        # print("abnormal time",s)
+        print("abnormal time",s)
     m = TIME_12.match(s)
     if m:
         h, mi, ap = int(m.group(1)), int(m.group(2)), m.group(3).upper()
