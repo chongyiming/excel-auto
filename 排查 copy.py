@@ -83,9 +83,21 @@ if option=="UM":
                 row_values = df.iloc[i]
                 result_dict[key].append(row_values)
 
+            # lines = [line.strip() for line in pasted_text.splitlines() if line.strip()]
+
+            # # Remove header or irrelevant lines
+            # header_keywords = ["Login", "Time", "Request/sec", "Total"]
+            # lines = [line for line in lines if line not in header_keywords and not line.startswith("(")]
+
+            # # Group every 4 lines
+            # data = [lines[i:i+4] for i in range(0, len(lines), 4)]
+
+            # # Create DataFrame
+            # result_df = pd.DataFrame(data, columns=["Login", "Time", "Request/sec", "Total"])
+
             # Convert to DataFrame
             result_df = pd.DataFrame(result_dict)
-            result_df.iloc[1] = result_df.iloc[0]
+            # result_df.iloc[1] = result_df.iloc[0]
             
             # Overwrite first column's all values with "UM"
             result_df.iloc[:, 1] = "UM"
@@ -120,7 +132,7 @@ if option=="UM":
             # Convert to DataFrame
             um2_result_df = pd.DataFrame(um2_result_dict)
 
-            um2_result_df.iloc[1] = um2_result_df.iloc[0]
+            # um2_result_df.iloc[1] = um2_result_df.iloc[0]
             # Overwrite first column's all values with "UM"
             um2_result_df.iloc[:, 1] = "UM2"
 
@@ -264,7 +276,7 @@ elif option=="ST":
 
             # Convert to DataFrame
             st_result_df = pd.DataFrame(st_result_dict)
-            st_result_df.iloc[1] = st_result_df.iloc[0]
+            # st_result_df.iloc[1] = st_result_df.iloc[0]
             # Clean columns 1, 2, 3 to unpack any stringified lists
             for col in st_result_df.columns[:]:
                 st_result_df[col] = st_result_df[col].apply(clean_cell)
@@ -305,7 +317,7 @@ elif option=="ST":
 
             # Convert to DataFrame
             st2_result_df = pd.DataFrame(st2_result_dict)
-            st2_result_df.iloc[1] = st2_result_df.iloc[0]
+            # st2_result_df.iloc[1] = st2_result_df.iloc[0]
             # Clean columns 1, 2, 3 to unpack any stringified lists
             for col in st2_result_df.columns[:]:
                 st2_result_df[col] = st2_result_df[col].apply(clean_cell)
@@ -406,7 +418,7 @@ elif option=="ST":
 
             # Convert to DataFrame
             st4_result_df = pd.DataFrame(st4_result_dict)
-            st4_result_df.iloc[1] = st4_result_df.iloc[0]
+            # st4_result_df.iloc[1] = st4_result_df.iloc[0]
             # Clean columns 1, 2, 3 to unpack any stringified lists
             for col in st4_result_df.columns[:]:
                 st4_result_df[col] = st4_result_df[col].apply(clean_cell)
