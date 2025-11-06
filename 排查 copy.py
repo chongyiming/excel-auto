@@ -85,16 +85,16 @@ if option=="UM":
 
             # Convert to DataFrame
             result_df = pd.DataFrame(result_dict)
-
+            result_df.iloc[1] = result_df.iloc[0]
+            
             # Overwrite first column's all values with "UM"
-            result_df.iloc[:, 0] = "UM"
+            result_df.iloc[:, 1] = "UM"
 
             # Clean columns 1, 2, 3 to unpack any stringified lists
-            for col in result_df.columns[1:]:
+            for col in result_df.columns[:]:
                 result_df[col] = result_df[col].apply(clean_cell)
-
             st.success(f'UM Count: {len(result_df)}')
-            st.dataframe(result_df.iloc[:, [0, 1]])
+            st.dataframe(result_df.iloc[:, [1, 0]])
             
 
 
@@ -120,15 +120,16 @@ if option=="UM":
             # Convert to DataFrame
             um2_result_df = pd.DataFrame(um2_result_dict)
 
+            um2_result_df.iloc[1] = um2_result_df.iloc[0]
             # Overwrite first column's all values with "UM"
-            um2_result_df.iloc[:, 0] = "UM2"
+            um2_result_df.iloc[:, 1] = "UM2"
 
             # Clean columns 1, 2, 3 to unpack any stringified lists
-            for col in um2_result_df.columns[1:]:
+            for col in um2_result_df.columns[:]:
                 um2_result_df[col] = um2_result_df[col].apply(clean_cell)
             st.success(f'UM2 Count: {len(um2_result_df)}')
 
-            st.dataframe(um2_result_df.iloc[:, [0, 1]])
+            st.dataframe(um2_result_df.iloc[:, [1, 0]])
         
         except Exception as e:
             st.error(f"Error parsing table: {e}") 
@@ -263,13 +264,13 @@ elif option=="ST":
 
             # Convert to DataFrame
             st_result_df = pd.DataFrame(st_result_dict)
-
+            st_result_df.iloc[1] = st_result_df.iloc[0]
             # Clean columns 1, 2, 3 to unpack any stringified lists
-            for col in st_result_df.columns[1:]:
+            for col in st_result_df.columns[:]:
                 st_result_df[col] = st_result_df[col].apply(clean_cell)
 
             st.success(f'ST Count: {len(st_result_df)}')
-
+            st.dataframe(st_result_df[0])
             
             # conn = st.connection("gsheets", type=GSheetsConnection)
 
@@ -304,12 +305,13 @@ elif option=="ST":
 
             # Convert to DataFrame
             st2_result_df = pd.DataFrame(st2_result_dict)
-
+            st2_result_df.iloc[1] = st2_result_df.iloc[0]
             # Clean columns 1, 2, 3 to unpack any stringified lists
-            for col in st2_result_df.columns[1:]:
+            for col in st2_result_df.columns[:]:
                 st2_result_df[col] = st2_result_df[col].apply(clean_cell)
 
             st.success(f'ST2 Count: {len(st2_result_df)}')
+            st.dataframe(st2_result_df[0])
             # st.dataframe(st2_result_df.iloc[:, 1])
             st.write("DB Accounts")
             # url = "https://docs.google.com/spreadsheets/d/1ImBMnjPD8xsXnqrejd7W2Y2vtREP6tvwox-XJf3mkXA/edit?usp=sharing"
@@ -331,28 +333,28 @@ elif option=="ST":
             # Prepare the data
             data['Currency'] = data['Currency'].str[-3:]  # Keep last 3 letters
             data['ID'] = data['ID'].astype(str).str.strip()
-            st2_result_df.iloc[:, 1] = st2_result_df.iloc[:, 1].astype(str).str.strip()
+            st2_result_df.iloc[:, 0] = st2_result_df.iloc[:, 0].astype(str).str.strip()
 
             # Mark banned accounts based on your criteria (>400 counts and USC)
             ban_list = []
-            for acc_id, count in zip(st2_result_df.iloc[:, 1], st2_result_df.iloc[:, 3]):
+            for acc_id, count in zip(st2_result_df.iloc[:, 0], st2_result_df.iloc[:, 3]):
                 # Check if the account has USC currency and count > 400
                 match = data[(data['ID'] == acc_id) & (data['Currency'] == 'USC')]
                 if not match.empty and int(count) > 400:
                     ban_list.append(acc_id)
 
             # Convert date column to datetime
-            st2_result_df[0] = st2_result_df[0].apply(
+            st2_result_df[1] = st2_result_df[1].apply(
                 lambda x: pd.to_datetime(x.values[0]) if isinstance(x, pd.Series) else pd.to_datetime(x)
             )
 
             # Filter rows based on banned accounts
-            filtered_rows = st2_result_df[st2_result_df.iloc[:, 1].isin(ban_list)].copy()
+            filtered_rows = st2_result_df[st2_result_df.iloc[:, 0].isin(ban_list)].copy()
 
             # Merge Currency and Balance from `data`
             filtered_df = filtered_rows.merge(
                 data[['ID', 'Currency', 'Balance']],
-                left_on=st2_result_df.columns[1],
+                left_on=st2_result_df.columns[0],
                 right_on='ID',
                 how='left'
             )
@@ -362,14 +364,21 @@ elif option=="ST":
 
             # Rename columns for clarity
             filtered_df = filtered_df.rename(columns={
-                0: 'Date',
-                st2_result_df.columns[1]: 'Login',
+                1: 'Date',
+                st2_result_df.columns[0]: 'Login',
                 st2_result_df.columns[2]: 'Request',
                 st2_result_df.columns[3]: 'Total'
             })
             filtered_df = filtered_df.drop(columns=['ID'])
             filtered_df['USD'] = filtered_df['Balance']/100
             filtered_df['Done'] = "Done"
+
+            filtered_df[["Login", "Date"]] = filtered_df[["Date", "Login"]].values
+            filtered_df.columns = ['Date', 'Login','Request','Total','Currency','Balance','USD','Done']
+
+
+
+
 
 
 
@@ -397,13 +406,13 @@ elif option=="ST":
 
             # Convert to DataFrame
             st4_result_df = pd.DataFrame(st4_result_dict)
-
+            st4_result_df.iloc[1] = st4_result_df.iloc[0]
             # Clean columns 1, 2, 3 to unpack any stringified lists
-            for col in st4_result_df.columns[1:]:
+            for col in st4_result_df.columns[:]:
                 st4_result_df[col] = st4_result_df[col].apply(clean_cell)
 
             st.success(f'ST4 Count: {len(st4_result_df)}')
-            # st.dataframe(st4_result_df.iloc[:, 1])
+            st.dataframe(st4_result_df.iloc[:, 0])
 
             # conn = st.connection("gsheets", type=GSheetsConnection)
 
@@ -482,7 +491,7 @@ elif option=="ST":
     # st.write("5) Copy and paste table using **Ctrl+V**")
 
     # st1_string="ST\n"
-    # for i in st_result_df[1]:
+    # for i in st_result_df[0]:
     #     st1_string+=i+"\n"
     # st.button("Copy ST",on_click=on_copy_click, args=(st1_string[:-1],))
 
@@ -597,11 +606,11 @@ elif option=="PU":
                 pu_result_dict[key].append(row_values)
 
             pu_result_df = pd.DataFrame(pu_result_dict)
-            for col in pu_result_df.columns[1:]:
+            for col in pu_result_df.columns[:]:
                 pu_result_df[col] = pu_result_df[col].apply(clean_cell)
 
             st.success(f'PU Count: {len(pu_result_df)}')
-            # st.dataframe(pu_result_df.iloc[:, 1])
+            st.dataframe(pu_result_df.iloc[:, 0])
 
 
             # data = conn.read(worksheet="PU1", usecols=list(range(1)))
@@ -626,10 +635,11 @@ elif option=="PU":
                 pu2_result_dict[key].append(row_values)
 
             pu2_result_df = pd.DataFrame(pu2_result_dict)
-            for col in pu2_result_df.columns[1:]:
+            for col in pu2_result_df.columns[:]:
                 pu2_result_df[col] = pu2_result_df[col].apply(clean_cell)
 
             st.success(f'PU2 Count: {len(pu2_result_df)}')
+            st.dataframe(pu2_result_df.iloc[:, 0])
 
             # data = conn.read(worksheet="PU2", usecols=list(range(1)))
             new_data=pd.DataFrame()
@@ -655,11 +665,11 @@ elif option=="PU":
                 pu3_result_dict[key].append(row_values)
 
             pu3_result_df = pd.DataFrame(pu3_result_dict)
-            for col in pu3_result_df.columns[1:]:
+            for col in pu3_result_df.columns[:]:
                 pu3_result_df[col] = pu3_result_df[col].apply(clean_cell)
 
             st.success(f'PU3 Count: {len(pu3_result_df)}')
-            # st.dataframe(pu3_result_df.iloc[:, 1])
+            st.dataframe(pu3_result_df.iloc[:, 0])
 
             # data = conn.read(worksheet="PU3", usecols=list(range(1)))
             new_data=pd.DataFrame()
@@ -685,11 +695,11 @@ elif option=="PU":
                 pu4_result_dict[key].append(row_values)
 
             pu4_result_df = pd.DataFrame(pu4_result_dict)
-            for col in pu4_result_df.columns[1:]:
+            for col in pu4_result_df.columns[:]:
                 pu4_result_df[col] = pu4_result_df[col].apply(clean_cell)
 
             st.success(f'PU4 Count: {len(pu4_result_df)}')
-            # st.dataframe(pu4_result_df.iloc[:, 1])
+            st.dataframe(pu4_result_df.iloc[:, 0])
 
             # data = conn.read(worksheet="PU4", usecols=list(range(1)))
             new_data=pd.DataFrame()
@@ -715,11 +725,11 @@ elif option=="PU":
                 pu5_result_dict[key].append(row_values)
 
             pu5_result_df = pd.DataFrame(pu5_result_dict)
-            for col in pu5_result_df.columns[1:]:
+            for col in pu5_result_df.columns[:]:
                 pu5_result_df[col] = pu5_result_df[col].apply(clean_cell)
 
             st.success(f'PU5 Count: {len(pu5_result_df)}')
-            # st.dataframe(pu5_result_df.iloc[:, 1])
+            st.dataframe(pu5_result_df.iloc[:, 0])
 
             # data = conn.read(worksheet="PU5", usecols=list(range(1)))
             new_data=pd.DataFrame()
@@ -745,11 +755,11 @@ elif option=="PU":
                 pu6_result_dict[key].append(row_values)
 
             pu6_result_df = pd.DataFrame(pu6_result_dict)
-            for col in pu6_result_df.columns[1:]:
+            for col in pu6_result_df.columns[:]:
                 pu6_result_df[col] = pu6_result_df[col].apply(clean_cell)
 
             st.success(f'PU6 Count: {len(pu6_result_df)}')
-            # st.dataframe(pu6_result_df.iloc[:, 1])
+            st.dataframe(pu6_result_df.iloc[:, 0])
             # data = conn.read(worksheet="PU6", usecols=list(range(1)))
             new_data=pd.DataFrame()
             new_data['Name'] = pu6_result_df[1]
@@ -774,11 +784,11 @@ elif option=="PU":
                 pu7_result_dict[key].append(row_values)
 
             pu7_result_df = pd.DataFrame(pu7_result_dict)
-            for col in pu7_result_df.columns[1:]:
+            for col in pu7_result_df.columns[:]:
                 pu7_result_df[col] = pu7_result_df[col].apply(clean_cell)
 
             st.success(f'PU7 Count: {len(pu7_result_df)}')
-            # st.dataframe(pu7_result_df.iloc[:, 1])
+            st.dataframe(pu7_result_df.iloc[:, 0])
             # data = conn.read(worksheet="PU7", usecols=list(range(1)))
             new_data=pd.DataFrame()
             new_data['Name'] = pu7_result_df[1]

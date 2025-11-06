@@ -6,6 +6,10 @@ option = st.selectbox(
     "Select Type",
     ("ST1","ST2","ST4"),
 )
+option1 = st.selectbox(
+    "Select Name",
+    ("YM-MY-Admin","Arios-MY-Admin","Winson-MY-Admin"),
+)
 
 login = st.text_input("Login")
 ticket = st.text_input("Ticket")
@@ -47,6 +51,6 @@ st.dataframe(row)
 
 if len(row)>0:
     if row['profit'].iloc[0]>0:
-        st.write(f'操作的manager名稱：YM-MY-Admin 帳號：{login} 帳號名稱：{row['name'].iloc[0]} 組別：{row['group'].iloc[0]} 資金：{row['profit'].iloc[0]} 需求: {ticket} 描述:展示帳號入金')
+        st.write(f'操作的manager名稱：{option1} 帳號：{login} 帳號名稱：{row['name'].iloc[0]} 組別：{row['group'].iloc[0]} 資金：{row['profit'].iloc[0]} 需求: {ticket} 描述:展示帳號入金')
     if row['profit'].iloc[0]<0:
-        st.write(f'操作的manager名稱：YM-MY-Admin 帳號：{login} 帳號名稱：{row['name'].iloc[0]} 組別：{row['group'].iloc[0]} 資金：{row['profit'].iloc[0]} 需求: {ticket} 描述:展示帳號出金')
+        st.write(f'操作的manager名稱：{option1} 帳號：{login} 帳號名稱：{row['name'].iloc[0]} 組別：{row['group'].iloc[0]} 資金：{row['profit'].iloc[0]} 需求: {ticket} 描述:展示帳號出金')
