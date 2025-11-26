@@ -4,7 +4,7 @@ from io import StringIO
 import pymysql
 option = st.selectbox(
     "Select Type",
-    ("ST1","ST2","ST4"),
+    ("ST1","ST2","ST4","MT5ST"),
 )
 option1 = st.selectbox(
     "Select Name",
@@ -25,25 +25,44 @@ elif option=="ST1":
     server="ivreport"
 elif option=="UM":
     server="oplreport"
+elif option=="MT5ST":
+    server="mt5_startrader_live"
 
 if option == "ST2" or option == "ST4" or option == "ST3" or option == "UM":
     db=pymysql.connect(host = "live-mt4-reportdb-repl-sg-03.vi-data.net", port = 3306, user = "reader_MY", passwd = "GC+Pb#Fw6?X-", db = server)
 elif option == "ST1":
     db=pymysql.connect(host = "live-mt4-reportdb-repl-sg-02.vi-data.net", port = 3306, user = "reader_MY", passwd = "GC+Pb#Fw6?X-", db = server)
+elif option == "MT5ST":
+    db=pymysql.connect(host = "live-mt5-reportdb-replica-sg04.vi-data.net", port = 3306, user = "admin_sg_read", passwd = "TfGyVEsDgnKf!xqg", db = server)
 
-cursor=db.cursor()
-sql = f"""
-SELECT 
-    t.LOGIN,
-    t.PROFIT,
-    u.NAME,
-    u.GROUP
-FROM {server}.mt4_trades AS t
-JOIN {server}.mt4_users AS u
-    ON t.LOGIN = u.LOGIN
-WHERE t.LOGIN = {login} AND LOWER(t.COMMENT) = 'star-deposit'
-LIMIT 1;
-"""
+if option!="MT5ST":
+    cursor=db.cursor()
+    sql = f"""
+    SELECT 
+        t.LOGIN,
+        t.PROFIT,
+        u.NAME,
+        u.GROUP
+    FROM {server}.mt4_trades AS t
+    JOIN {server}.mt4_users AS u
+        ON t.LOGIN = u.LOGIN
+    WHERE t.LOGIN = {login} AND LOWER(t.COMMENT) = 'star-deposit'
+    LIMIT 1;
+    """
+else:
+    cursor=db.cursor()
+    sql=f"""
+    SELECT 
+        t.LOGIN,
+        t.PROFIT,
+        u.NAME,
+        u.GROUP
+    FROM {server}.mt5_deals AS t
+    JOIN {server}.mt5_users AS u
+        ON t.LOGIN = u.LOGIN
+    WHERE t.LOGIN = {login} AND LOWER(t.COMMENT) = 'star-deposit'
+    LIMIT 1;
+    """
 cursor.execute(sql)
 data = cursor.fetchall()
 row=pd.DataFrame(list(data),columns=['login','profit','name','group'])
