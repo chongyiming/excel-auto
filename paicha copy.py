@@ -752,6 +752,64 @@ elif option=="PU":
             # conn.update(worksheet="PU7",data=new_data)
         except Exception as e:
             st.error(f"Error parsing PU7: {e}")
+
+    
+    if st.button("One Click Send Email"):
+
+        email_body_html = """<p>Hi Team,</p><br><p>We are writing to let you know that clients listed are trading excessively with over 20,000 orders per week with order modification. Please inform clients to adjust EA configurations and trading behaviors to avoid causing server overloading.</p><br>"""
+
+        # Build ST sections as HTML
+        pu_html = ""
+        if pu_pasted_text:
+            pu_html += "<p><u><b>PU</b></u><br>"
+            pu_html += "<br>".join(pu_result_df[0]) + "</p><br>"
+
+        if pu2_pasted_text:
+            pu_html += "<p><u><b>PU2</b></u><br>"
+            pu_html += "<br>".join(pu2_result_df[0]) + "</p><br>"
+
+        if pu3_pasted_text:
+            pu_html += "<p><u><b>PU3</b></u><br>"
+            pu_html += "<br>".join(pu3_result_df[0]) + "</p><br>"
+
+        if pu4_pasted_text:
+            pu_html += "<p><u><b>PU4</b></u><br>"
+            pu_html += "<br>".join(pu4_result_df[0]) + "</p><br>"
+
+        if pu5_pasted_text:
+            pu_html += "<p><u><b>PU5</b></u><br>"
+            pu_html += "<br>".join(pu5_result_df[0]) + "</p><br>"
+
+        if pu6_pasted_text:
+            pu_html += "<p><u><b>PU6</b></u><br>"
+            pu_html += "<br>".join(pu6_result_df[0]) + "</p><br>"
+
+        if pu7_pasted_text:
+            pu_html += "<p><u><b>PU7</b></u><br>"
+            pu_html += "<br>".join(pu7_result_df[0]) + "</p><br>"
+
+
+        # Append ST sections into email body
+        email_body_html += pu_html
+
+        # Add remaining content
+        email_body_html += """<p>What would CS Team need to know?</p><br><p>The clients were informed because of Hyperactive EA Trading might cause server excessive loading. This notification letter is a reminder to inform clients applying adjustments to avoid further influence. At the moment, System Admin would not apply any execution against clients. System Admin will inform again if clients refuse to make adjustment or apply inappropriate adjustment might cause server overloading.</p><br><p>What would CS Team need to do?</p><br><p>Please kindly inform client to adjust EA configuration or trading behavior accordingly and help to assist clients if they need. The threshold value was listed as below if client would like to know. System Admin would also preserve the right to take execution regarding to other abnormal behaviors causing server excessive loading. For instance, consistently login and logout without actual operations/several times of request sending to server within a second/unknown network pumping, etc.</p><br><p>More than 3 times within a second<br>More than 600 times within 30 minutes.</p><br><p>Best Regards,<br>System Admin</p>"""
+
+
+        url = "http://localhost:5678/webhook/pu"
+
+        payload = {
+            "message": { 
+                "body": {
+                            "contentType": "HTML",
+                            "content": email_body_html
+                        },
+
+            }
+        }
+
+        # Send as JSON
+        response = requests.post(url, json=payload)
     # st.write("5) Copy this to outlook:")
 
     # st.markdown("""
