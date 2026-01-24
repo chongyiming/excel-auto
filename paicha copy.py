@@ -327,77 +327,7 @@ elif option=="ST":
             st.success(f'ST2 Count: {len(st2_result_df)}')
             st.dataframe(st2_result_df[0])
             # st.dataframe(st2_result_df.iloc[:, 1])
-            st.write("DB Accounts")
-            # url = "https://docs.google.com/spreadsheets/d/1ImBMnjPD8xsXnqrejd7W2Y2vtREP6tvwox-XJf3mkXA/edit?usp=sharing"
-
-            # conn = st.connection("gsheets", type=GSheetsConnection)
-
-            # data = conn.read(worksheet="Accounts", usecols=list(range(2)))
-            db=pymysql.connect(host = "live-mt4-reportdb-repl-sg-03.vi-data.net", port = 3306, user = "reader_MY", passwd = "GC+Pb#Fw6?X-", db = "startrader2report")
-            cursor=db.cursor()
-            sql = f"""
-            SELECT `login`, `group`,`balance`
-            FROM mt4_users;
-            """
-            cursor.execute(sql)
-            data = cursor.fetchall()
-            data=pd.DataFrame(list(data),columns=['ID','Currency','Balance'])
-            st.dataframe(data)
-                        
-            # Prepare the data
-            data['Currency'] = data['Currency'].str[-3:]  # Keep last 3 letters
-            data['ID'] = data['ID'].astype(str).str.strip()
-            st2_result_df.iloc[:, 0] = st2_result_df.iloc[:, 0].astype(str).str.strip()
-
-            # Mark banned accounts based on your criteria (>400 counts and USC)
-            ban_list = []
-            for acc_id, count in zip(st2_result_df.iloc[:, 0], st2_result_df.iloc[:, 3]):
-                # Check if the account has USC currency and count > 400
-                match = data[(data['ID'] == acc_id) & (data['Currency'] == 'USC')]
-                if not match.empty and int(count) > 400:
-                    ban_list.append(acc_id)
-
-            # Convert date column to datetime
-            st2_result_df[1] = st2_result_df[1].apply(
-                lambda x: pd.to_datetime(x.values[0]) if isinstance(x, pd.Series) else pd.to_datetime(x)
-            )
-
-            # Filter rows based on banned accounts
-            filtered_rows = st2_result_df[st2_result_df.iloc[:, 0].isin(ban_list)].copy()
-
-            # Merge Currency and Balance from `data`
-            filtered_df = filtered_rows.merge(
-                data[['ID', 'Currency', 'Balance']],
-                left_on=st2_result_df.columns[0],
-                right_on='ID',
-                how='left'
-            )
-
-            # Filter by USC currency and Balance < 500000
-            filtered_df = filtered_df[(filtered_df['Currency'] == 'USC') & (filtered_df['Balance'] < 500_000)]
-
-            # Rename columns for clarity
-            filtered_df = filtered_df.rename(columns={
-                1: 'Date',
-                st2_result_df.columns[0]: 'Login',
-                st2_result_df.columns[2]: 'Request',
-                st2_result_df.columns[3]: 'Total'
-            })
-            filtered_df = filtered_df.drop(columns=['ID'])
-            filtered_df['USD'] = filtered_df['Balance']/100
-            filtered_df['Done'] = "Done"
-
-            filtered_df[["Login", "Date"]] = filtered_df[["Date", "Login"]].values
-            filtered_df.columns = ['Date', 'Login','Request','Total','Currency','Balance','USD','Done']
-
-
-
-
-
-
-
-            st.write("USC Accounts with more than 400 Counts and Balance < 500k")
-            st.dataframe(filtered_df)
+            
 
 
 
@@ -443,7 +373,7 @@ elif option=="ST":
             st.error(f"Error parsing ST4 table: {e}")
 
     # st.write("3) USC Users (Filter using Total > 400) and can add accounts [here](https://docs.google.com/spreadsheets/d/1R1bndk9Pb8N3oXP_8TB0xmHpigP7OMer4qtOmL58yks/edit?usp=sharing)")
-    st.write(usc_string)
+    # st.write(usc_string)
    
     if st.button("One Click Send Email"):
 
