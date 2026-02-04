@@ -102,7 +102,7 @@ pages = {
         # st.Page("排查format.py", title="排查Reformat"),
         st.Page("paicha copy.py", title="排查"),
 
-        st.Page("equity_less_than_5k.py", title="Equity Less than 5k"),
+        st.Page("equity_greater_than_5k.py", title="Equity Greater than 5k"),
         # st.Page("free_memory.py", title="Free Memory"),
         st.Page("journal&instance手动排查.py", title="Journal/Instance排查"),
 
