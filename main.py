@@ -115,7 +115,7 @@ pages = {
 
     ],
      "Tools": [
-        st.Page("dynamic_leverage.py", title="Dynamic Leverage"),
+        st.Page("dynamic_leverage.py", title="Dynamic Leverage Auto Set"),
         st.Page("balance_adjustment.py", title="Deposit/Withdrawal"),
         st.Page("order_achieve.py", title="Archive Order"),
         st.Page("testing.py", title="Test")
@@ -124,15 +124,7 @@ pages = {
         
         
 
-    ],
-
-    # "我们怀念你": [
-    #     st.Page("testing.py", title="下线名单"),
-    #     # st.Page("account_lists.py", title="Account")
-        
-
-    # ]
-    
+    ]
 }
 
 pg = st.navigation(pages)
