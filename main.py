@@ -102,7 +102,7 @@ pages = {
         # st.Page("排查format.py", title="排查Reformat"),
         st.Page("paicha copy.py", title="排查"),
 
-        st.Page("equity_less_than_5k.py", title="Equity Less than 5k"),
+        st.Page("equity_greater_than_5k.py", title="Equity Greater than 5k"),
         # st.Page("free_memory.py", title="Free Memory"),
         st.Page("journal&instance手动排查.py", title="Journal/Instance排查"),
 
@@ -116,21 +116,15 @@ pages = {
     ],
      "Tools": [
 
+        st.Page("dynamic_leverage.py", title="Dynamic Leverage Auto Set"),
+        st.Page("balance_adjustment.py", title="Deposit/Withdrawal"),
         st.Page("order_achieve.py", title="Archive Order"),
 
 
-        
-        
 
-    ],
 
-    # "我们怀念你": [
-    #     st.Page("testing.py", title="下线名单"),
-    #     # st.Page("account_lists.py", title="Account")
-        
 
-    # ]
-    
+    ]
 }
 
 pg = st.navigation(pages)
