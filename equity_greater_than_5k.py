@@ -20,8 +20,7 @@ if uploaded_file is not None:
     manager = MT5Manager.ManagerAPI()
     if manager.Connect(st.secrets["accounts"]["ip"], int(st.secrets["accounts"]["login"]), st.secrets["accounts"]["password"], 
                         MT5Manager.ManagerAPI.EnPumpModes.PUMP_MODE_FULL, 12000):
-    # if manager.Connect("185.97.160.162:1950", 1183, "QxZ*B4Nt", 
-    #                 MT5Manager.ManagerAPI.EnPumpModes.PUMP_MODE_FULL, 120000):
+
         
         user = MT5Manager.MTUser(manager)
         
@@ -54,7 +53,7 @@ if uploaded_file is not None:
                     output_login_list.append(user.Login)
                     output_status_list.append("Position exist")
                 output_data=pd.DataFrame({"Login": output_login_list, "Status": output_status_list})
-
+                time.sleep(1)
 
         manager.Disconnect()
         excel_data = to_excel(output_data)
