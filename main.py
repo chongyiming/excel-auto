@@ -117,7 +117,6 @@ pages = {
      "Tools": [
 
         st.Page("dynamic_leverage.py", title="Dynamic Leverage Auto Set"),
-        st.Page("balance_adjustment.py", title="Deposit/Withdrawal"),
         st.Page("order_achieve.py", title="Archive Order"),
 
 
