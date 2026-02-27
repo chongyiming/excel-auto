@@ -8,7 +8,7 @@ import datetime
 d = st.date_input("Select Archive Date")
 st.write("Date:", d)
 if st.button("Get File"):
-    db=pymysql.connect(host = "live-mt4-reportdb-repl-sg-03.vi-data.net", port = 3306, user = "reader_MY", passwd = "GC+Pb#Fw6?X-", db = "pui7report")
+    db=pymysql.connect(host = st.secrets["db"]["ip"], port = 3306, user = st.secrets["db"]["login"], passwd = st.secrets["db"]["password"], db = "pui7report")
     cursor=db.cursor()
     sql = f"""
     select 'pui7report' as 'Server',t.login,u.`group`,count(t.ticket),u.COUNTRY, sum(t.PROFIT+t.COMMISSION+t.`SWAPS`) as "balance"
@@ -35,7 +35,7 @@ if st.button("Get File"):
     data.to_csv(f"{d}_archive_order_PU7.csv", index=False)
 
 
-    db1=pymysql.connect(host = "live-mt4-reportdb-repl-sg-03.vi-data.net", port = 3306, user = "reader_MY", passwd = "GC+Pb#Fw6?X-", db = "pui6report")
+    db1=pymysql.connect(host = st.secrets["pu6db"]["ip"], port = 3306, user = st.secrets["db"]["login"], passwd = st.secrets["db"]["password"], db = "pui6report")
     cursor1=db1.cursor()
     sql1 = f"""
     select 'pui6report' as 'Server',t.login,u.`group`,count(t.ticket),u.COUNTRY, sum(t.PROFIT+t.COMMISSION+t.`SWAPS`) as "balance"

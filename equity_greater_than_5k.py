@@ -13,13 +13,15 @@ def to_excel(df):
 uploaded_file = st.file_uploader("Upload CSV File", key="excel")
 
 if uploaded_file is not None:
+    
     sheet2_df = pd.read_csv(uploaded_file, sep=",")
     st.dataframe(sheet2_df)
+    st.write('Connecting...')
     output_login_list=[]
     output_status_list=[]
     manager = MT5Manager.ManagerAPI()
     if manager.Connect(st.secrets["accounts"]["ip"], int(st.secrets["accounts"]["login"]), st.secrets["accounts"]["password"], 
-                        MT5Manager.ManagerAPI.EnPumpModes.PUMP_MODE_FULL, 12000):
+                        MT5Manager.ManagerAPI.EnPumpModes.PUMP_MODE_FULL, 120000):
 
         
         user = MT5Manager.MTUser(manager)

@@ -368,27 +368,31 @@ if uploaded_file is not None:
                                         # 3. Merge Overlapping Sessions
                     merged_intervals = merge_intervals(raw_intervals)
 
-                    # --- Default Session Config ---
-                    d_from_day = int(config_row["FromDay"])
-                    d_to_day = int(config_row["ToDay"])
-                    d_from_h = int(config_row["FromHour"])
-                    d_to_h = int(config_row["ToHour"])
-                    d_from_m = int(config_row["FromMinute"])
-                    d_to_m = int(config_row["ToMinute"])
+                    for index, config_row in config_file.iterrows():
+                        # 1. Extract values for the current row
+                        d_from_day = int(config_row["FromDay"])
+                        d_to_day   = int(config_row["ToDay"])
+                        d_from_h   = int(config_row["FromHour"])
+                        d_to_h     = int(config_row["ToHour"])
+                        d_from_m   = int(config_row["FromMinute"])
+                        d_to_m     = int(config_row["ToMinute"])
 
-                    # Add Default Session
-                    psessions.append({ 
-                        "ServerID": '0', 
-                        "SessionID": None, 
-                        "ProfileID": int(config_row["ProfileID"]), 
-                        "FromDay": d_from_day, "ToDay": d_to_day, 
-                        "FromHour": d_from_h, "ToHour": d_to_h, 
-                        "FromMinute": d_from_m, "ToMinute": d_to_m, 
-                        "Tiers": str(config_row["Tiers"]), 
-                        "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]", 
-                        "SessionTitle": str(config_row["SessionTitle"]), 
-                        "TiersDisplay": str(config_row["TiersDisplay"]), 
-                    })
+                        # 2. Append the dictionary for the current row to your list
+                        psessions.append({ 
+                            "ServerID": 0, 
+                            "SessionID": None, 
+                            "ProfileID": int(config_row["ProfileID"]), 
+                            "FromDay": d_from_day, 
+                            "ToDay": d_to_day, 
+                            "FromHour": d_from_h, 
+                            "ToHour": d_to_h, 
+                            "FromMinute": d_from_m, 
+                            "ToMinute": d_to_m, 
+                            "Tiers": str(config_row["Tiers"]), 
+                            "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]", 
+                            "SessionTitle": str(config_row["SessionTitle"]), 
+                            "TiersDisplay": str(config_row["TiersDisplay"]), 
+                        })
 
                     # 4. Add News Sessions (ONLY if not covered by Default)
                     for item in merged_intervals:
@@ -407,7 +411,7 @@ if uploaded_file is not None:
 
                         # If NOT covered, add it
                         psessions.append({
-                            "ServerID": int(config_row["ServerID"]),
+                            "ServerID": 0,
                             "SessionID": None,
                             "ProfileID": int(config_row["ProfileID"]),
                             "FromDay": get_api_day(item['Start_Full']),
@@ -484,26 +488,31 @@ if uploaded_file is not None:
                     merged_intervals = merge_intervals(raw_intervals)
 
                     # --- Default Session Config ---
-                    d_from_day = int(config_row["FromDay"])
-                    d_to_day = int(config_row["ToDay"])
-                    d_from_h = int(config_row["FromHour"])
-                    d_to_h = int(config_row["ToHour"])
-                    d_from_m = int(config_row["FromMinute"])
-                    d_to_m = int(config_row["ToMinute"])
+                    for index, config_row in config_file.iterrows():
+                        # 1. Extract values for the current row
+                        d_from_day = int(config_row["FromDay"])
+                        d_to_day   = int(config_row["ToDay"])
+                        d_from_h   = int(config_row["FromHour"])
+                        d_to_h     = int(config_row["ToHour"])
+                        d_from_m   = int(config_row["FromMinute"])
+                        d_to_m     = int(config_row["ToMinute"])
 
-                    # Add Default Session
-                    psessions.append({ 
-                        "ServerID": '0', 
-                        "SessionID": None, 
-                        "ProfileID": int(config_row["ProfileID"]), 
-                        "FromDay": d_from_day, "ToDay": d_to_day, 
-                        "FromHour": d_from_h, "ToHour": d_to_h, 
-                        "FromMinute": d_from_m, "ToMinute": d_to_m, 
-                        "Tiers": str(config_row["Tiers"]), 
-                        "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]", 
-                        "SessionTitle": str(config_row["SessionTitle"]), 
-                        "TiersDisplay": str(config_row["TiersDisplay"]), 
-                    })
+                        # 2. Append the dictionary for the current row to your list
+                        psessions.append({ 
+                            "ServerID": 0, 
+                            "SessionID": None, 
+                            "ProfileID": int(config_row["ProfileID"]), 
+                            "FromDay": d_from_day, 
+                            "ToDay": d_to_day, 
+                            "FromHour": d_from_h, 
+                            "ToHour": d_to_h, 
+                            "FromMinute": d_from_m, 
+                            "ToMinute": d_to_m, 
+                            "Tiers": str(config_row["Tiers"]), 
+                            "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]", 
+                            "SessionTitle": str(config_row["SessionTitle"]), 
+                            "TiersDisplay": str(config_row["TiersDisplay"]), 
+                        })
 
                     # 4. Add News Sessions (ONLY if not covered by Default)
                     for item in merged_intervals:
@@ -522,7 +531,7 @@ if uploaded_file is not None:
 
                         # If NOT covered, add it
                         psessions.append({
-                            "ServerID": int(config_row["ServerID"]),
+                            "ServerID": 0,
                             "SessionID": None,
                             "ProfileID": int(config_row["ProfileID"]),
                             "FromDay": get_api_day(item['Start_Full']),
@@ -599,27 +608,31 @@ if uploaded_file is not None:
                                         # 3. Merge Overlapping Sessions
                     merged_intervals = merge_intervals(raw_intervals)
 
-                    # --- Default Session Config ---
-                    d_from_day = int(config_row["FromDay"])
-                    d_to_day = int(config_row["ToDay"])
-                    d_from_h = int(config_row["FromHour"])
-                    d_to_h = int(config_row["ToHour"])
-                    d_from_m = int(config_row["FromMinute"])
-                    d_to_m = int(config_row["ToMinute"])
+                    for index, config_row in config_file.iterrows():
+                        # 1. Extract values for the current row
+                        d_from_day = int(config_row["FromDay"])
+                        d_to_day   = int(config_row["ToDay"])
+                        d_from_h   = int(config_row["FromHour"])
+                        d_to_h     = int(config_row["ToHour"])
+                        d_from_m   = int(config_row["FromMinute"])
+                        d_to_m     = int(config_row["ToMinute"])
 
-                    # Add Default Session
-                    psessions.append({ 
-                        "ServerID": '0', 
-                        "SessionID": None, 
-                        "ProfileID": int(config_row["ProfileID"]), 
-                        "FromDay": d_from_day, "ToDay": d_to_day, 
-                        "FromHour": d_from_h, "ToHour": d_to_h, 
-                        "FromMinute": d_from_m, "ToMinute": d_to_m, 
-                        "Tiers": str(config_row["Tiers"]), 
-                        "TiersJson": Oil_IndicesLeverage, 
-                        "SessionTitle": str(config_row["SessionTitle"]), 
-                        "TiersDisplay": str(config_row["TiersDisplay"]), 
-                    })
+                        # 2. Append the dictionary for the current row to your list
+                        psessions.append({ 
+                            "ServerID": 0, 
+                            "SessionID": None, 
+                            "ProfileID": int(config_row["ProfileID"]), 
+                            "FromDay": d_from_day, 
+                            "ToDay": d_to_day, 
+                            "FromHour": d_from_h, 
+                            "ToHour": d_to_h, 
+                            "FromMinute": d_from_m, 
+                            "ToMinute": d_to_m, 
+                            "Tiers": str(config_row["Tiers"]), 
+                            "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]", 
+                            "SessionTitle": str(config_row["SessionTitle"]), 
+                            "TiersDisplay": str(config_row["TiersDisplay"]), 
+                        })
 
                     # 4. Add News Sessions (ONLY if not covered by Default)
                     for item in merged_intervals:
@@ -638,7 +651,7 @@ if uploaded_file is not None:
 
                         # If NOT covered, add it
                         psessions.append({
-                            "ServerID": int(config_row["ServerID"]),
+                            "ServerID": 0,
                             "SessionID": None,
                             "ProfileID": int(config_row["ProfileID"]),
                             "FromDay": get_api_day(item['Start_Full']),
@@ -713,27 +726,31 @@ if uploaded_file is not None:
                                         # 3. Merge Overlapping Sessions
                     merged_intervals = merge_intervals(raw_intervals)
 
-                    # --- Default Session Config ---
-                    d_from_day = int(config_row["FromDay"])
-                    d_to_day = int(config_row["ToDay"])
-                    d_from_h = int(config_row["FromHour"])
-                    d_to_h = int(config_row["ToHour"])
-                    d_from_m = int(config_row["FromMinute"])
-                    d_to_m = int(config_row["ToMinute"])
+                    for index, config_row in config_file.iterrows():
+                        # 1. Extract values for the current row
+                        d_from_day = int(config_row["FromDay"])
+                        d_to_day   = int(config_row["ToDay"])
+                        d_from_h   = int(config_row["FromHour"])
+                        d_to_h     = int(config_row["ToHour"])
+                        d_from_m   = int(config_row["FromMinute"])
+                        d_to_m     = int(config_row["ToMinute"])
 
-                    # Add Default Session
-                    psessions.append({ 
-                        "ServerID": '0', 
-                        "SessionID": None, 
-                        "ProfileID": int(config_row["ProfileID"]), 
-                        "FromDay": d_from_day, "ToDay": d_to_day, 
-                        "FromHour": d_from_h, "ToHour": d_to_h, 
-                        "FromMinute": d_from_m, "ToMinute": d_to_m, 
-                        "Tiers": str(config_row["Tiers"]), 
-                        "TiersJson": Oil_IndicesLeverage, 
-                        "SessionTitle": str(config_row["SessionTitle"]), 
-                        "TiersDisplay": str(config_row["TiersDisplay"]), 
-                    })
+                        # 2. Append the dictionary for the current row to your list
+                        psessions.append({ 
+                            "ServerID": 0, 
+                            "SessionID": None, 
+                            "ProfileID": int(config_row["ProfileID"]), 
+                            "FromDay": d_from_day, 
+                            "ToDay": d_to_day, 
+                            "FromHour": d_from_h, 
+                            "ToHour": d_to_h, 
+                            "FromMinute": d_from_m, 
+                            "ToMinute": d_to_m, 
+                            "Tiers": str(config_row["Tiers"]), 
+                            "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]", 
+                            "SessionTitle": str(config_row["SessionTitle"]), 
+                            "TiersDisplay": str(config_row["TiersDisplay"]), 
+                        })
 
                     # 4. Add News Sessions (ONLY if not covered by Default)
                     for item in merged_intervals:
@@ -752,7 +769,7 @@ if uploaded_file is not None:
 
                         # If NOT covered, add it
                         psessions.append({
-                            "ServerID": int(config_row["ServerID"]),
+                            "ServerID": 0,
                             "SessionID": None,
                             "ProfileID": int(config_row["ProfileID"]),
                             "FromDay": get_api_day(item['Start_Full']),
