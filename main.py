@@ -115,8 +115,7 @@ pages = {
 
     ],
      "Tools": [
-        st.Page("dynamic_leverage.py", title="Dynamic Leverage Auto Set"),
-
+        st.Page("dynamic_leverage_testing.py", title="Dynamic Leverage Auto Set"),
         st.Page("order_achieve.py", title="Archive Order"),
         st.Page("testing1.py", title="Test")
 
