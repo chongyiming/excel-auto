@@ -529,68 +529,43 @@ if uploaded_file is not None:
                 oil_rows = f1_dataframe[f1_dataframe["Profile"].str.contains("Oil", na=False)]
 
                 
-
-                # Merge Logic
-
+                # 2. Collect ALL raw intervals (Defaults + News)
                 raw_intervals = []
 
+                # Add News Intervals
                 for _, row in oil_rows.iterrows():
-
                     raw_intervals.append({
-
                         'Start_Full': row['Start_Full'],
-
                         'End_Full': row['End_Full'],
-
                         'Event': str(row["New_Event"])
-
                     })
 
-                                    # 3. Merge Overlapping Sessions
-                merged_intervals = merge_intervals(raw_intervals)
+                # Add Default Intervals (Converting the day/hour/min to a comparable datetime)
+                # Note: We use the first News date as a reference to create the "Default" datetime
+                ref_date = oil_rows.iloc[0]['Date'] if not oil_rows.empty else datetime.today()
 
                 for index, config_row in config_file.iterrows():
-                    # 1. Extract values for the current row
-                    d_from_day = int(config_row["FromDay"])
-                    d_to_day   = int(config_row["ToDay"])
-                    d_from_h   = int(config_row["FromHour"])
-                    d_to_h     = int(config_row["ToHour"])
-                    d_from_m   = int(config_row["FromMinute"])
-                    d_to_m     = int(config_row["ToMinute"])
+                    # Helper to calculate datetime for the default session based on the week's dates
+                    d_start = datetime.combine(ref_date, datetime.min.time()) + timedelta(days=(int(config_row["FromDay"]) - get_api_day(ref_date)))
+                    d_start = d_start.replace(hour=int(config_row["FromHour"]), minute=int(config_row["FromMinute"]))
+                    
+                    # Handle the "ToDay" logic
+                    d_end = datetime.combine(ref_date, datetime.min.time()) + timedelta(days=(int(config_row["ToDay"]) - get_api_day(ref_date)))
+                    d_end = d_end.replace(hour=int(config_row["ToHour"]), minute=int(config_row["ToMinute"]))
 
-                    # 2. Append the dictionary for the current row to your list
-                    psessions.append({ 
-                        "ServerID": 0, 
-                        "SessionID": None, 
-                        "ProfileID": int(config_row["ProfileID"]), 
-                        "FromDay": d_from_day, 
-                        "ToDay": d_to_day, 
-                        "FromHour": d_from_h, 
-                        "ToHour": d_to_h, 
-                        "FromMinute": d_from_m, 
-                        "ToMinute": d_to_m, 
-                        "Tiers": str(config_row["Tiers"]), 
-                        "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]", 
-                        "SessionTitle": str(config_row["SessionTitle"]), 
-                        "TiersDisplay": str(config_row["TiersDisplay"]), 
+                    raw_intervals.append({
+                        'Start_Full': d_start,
+                        'End_Full': d_end,
+                        'Event': str(config_row["SessionTitle"])
                     })
 
-                # 4. Add News Sessions (ONLY if not covered by Default)
-                for item in merged_intervals:
-                    
-                    # CHECK: Is this news event completely inside the default session?
-                    covered = is_session_covered(
-                        item['Start_Full'], item['End_Full'],
-                        d_from_day, d_to_day, d_from_h, d_to_h, d_from_m, d_to_m
-                    )
-                    
-                    if covered:
-                        # Skip adding this session because the Default Session covers it
-                        # You can optionally print a log here for debugging
-                        # st.write(f"Skipping {item['Event']} - Covered by Default Session")
-                        continue 
+                # 3. Merge EVERYTHING together
+                # This will combine General Forex + GDP into ONE interval if they overlap
+                merged_intervals = merge_intervals(raw_intervals)
 
-                    # If NOT covered, add it
+                # 4. Build psessions from the merged results
+                psessions = []
+                for item in merged_intervals:
                     psessions.append({
                         "ServerID": 0,
                         "SessionID": None,
@@ -602,7 +577,7 @@ if uploaded_file is not None:
                         "FromMinute": item['Start_Full'].minute,
                         "ToMinute": item['End_Full'].minute,
                         "Tiers": str(config_row["Tiers"]),
-                        "TiersJson": Oil_IndicesLeverage,
+                        "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]",
                         "SessionTitle": item['Event'],
                         "TiersDisplay": str(config_row["TiersDisplay"]),
                     })
