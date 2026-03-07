@@ -577,7 +577,7 @@ if uploaded_file is not None:
                         "FromMinute": item['Start_Full'].minute,
                         "ToMinute": item['End_Full'].minute,
                         "Tiers": str(config_row["Tiers"]),
-                        "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]",
+                        "TiersJson": Oil_IndicesLeverage,
                         "SessionTitle": item['Event'],
                         "TiersDisplay": str(config_row["TiersDisplay"]),
                     })
@@ -666,7 +666,7 @@ if uploaded_file is not None:
                         "FromMinute": item['Start_Full'].minute,
                         "ToMinute": item['End_Full'].minute,
                         "Tiers": str(config_row["Tiers"]),
-                        "TiersJson": "[{\"Level\":\"T1\",\"Trenches\":\"0\",\"Percentage\":\"200\"}]",
+                        "TiersJson": Oil_IndicesLeverage,
                         "SessionTitle": item['Event'],
                         "TiersDisplay": str(config_row["TiersDisplay"]),
                     })
